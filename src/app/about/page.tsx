@@ -117,6 +117,29 @@ export default function AboutPage() {
 
                             <Separator className="my-16" />
 
+                            {/* Video Section */}
+                            <div className="mb-16">
+                                <h2 className="text-3xl font-bold mb-6 text-center">Watch Our Story</h2>
+                                <p className="text-neutral-600 mb-8 text-center max-w-xl mx-auto">
+                                    Take a look inside our workshop and see how we craft premium stainless steel furniture.
+                                </p>
+                                <div className="aspect-video w-full max-w-3xl mx-auto rounded-lg overflow-hidden shadow-lg">
+                                    <iframe
+                                        width="100%"
+                                        height="100%"
+                                        src="https://www.youtube.com/embed/mIcC1v0kciw?si=fGQoDeYbAYo5SBQ5"
+                                        title="Stallion Stainless - Our Story"
+                                        frameBorder="0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                        referrerPolicy="strict-origin-when-cross-origin"
+                                        allowFullScreen
+                                        className="w-full h-full"
+                                    />
+                                </div>
+                            </div>
+
+                            <Separator className="my-16" />
+
                             {/* Contact */}
                             <div className="text-center">
                                 <h2 className="text-3xl font-bold mb-6">Visit Our Showroom</h2>
