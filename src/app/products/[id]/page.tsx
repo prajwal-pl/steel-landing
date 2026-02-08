@@ -6,7 +6,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import {
-    ShoppingCart,
+    MessageCircle,
     Heart,
     ArrowLeft,
     Truck,
@@ -14,9 +14,11 @@ import {
     Package,
     Star,
     Check,
+    Phone,
 } from "lucide-react";
 import { useState } from "react";
 import { getProductById } from "@/lib/products";
+import { ContactModal } from "@/components/contact-modal";
 
 export default function ProductDetailPage() {
     const params = useParams();
@@ -25,6 +27,7 @@ export default function ProductDetailPage() {
 
     const [selectedImage, setSelectedImage] = useState(0);
     const [quantity, setQuantity] = useState(1);
+    const [isContactModalOpen, setIsContactModalOpen] = useState(false);
 
     if (!product) {
         return (
@@ -47,9 +50,9 @@ export default function ProductDetailPage() {
                                 <button className="p-2 hover:bg-neutral-100 rounded-full">
                                     <Heart className="w-5 h-5" />
                                 </button>
-                                <Link href="/checkout" className="p-2 hover:bg-neutral-100 rounded-full">
-                                    <ShoppingCart className="w-5 h-5" />
-                                </Link>
+                                <button className="p-2 hover:bg-neutral-100 rounded-full">
+                                    <Phone className="w-5 h-5" />
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -93,13 +96,22 @@ export default function ProductDetailPage() {
                             <button className="p-2 hover:bg-neutral-100 rounded-full">
                                 <Heart className="w-5 h-5" />
                             </button>
-                            <Link href="/checkout" className="p-2 hover:bg-neutral-100 rounded-full">
-                                <ShoppingCart className="w-5 h-5" />
-                            </Link>
+                            <button
+                                onClick={() => setIsContactModalOpen(true)}
+                                className="p-2 hover:bg-neutral-100 rounded-full"
+                            >
+                                <Phone className="w-5 h-5" />
+                            </button>
                         </div>
                     </div>
                 </div>
             </header>
+
+            <ContactModal
+                isOpen={isContactModalOpen}
+                onClose={() => setIsContactModalOpen(false)}
+                productName={product.name}
+            />
 
             <main className="pt-24 pb-20">
                 <div className="container mx-auto px-4">
@@ -130,10 +142,10 @@ export default function ProductDetailPage() {
                                 {/* Range Badge */}
                                 <div className="absolute top-4 left-4">
                                     <span className={`px-3 py-1 text-sm font-medium rounded-full ${product.range === "Economic"
-                                            ? "bg-green-100 text-green-700"
-                                            : product.range === "Exclusive"
-                                                ? "bg-purple-100 text-purple-700"
-                                                : "bg-amber-100 text-amber-700"
+                                        ? "bg-green-100 text-green-700"
+                                        : product.range === "Exclusive"
+                                            ? "bg-purple-100 text-purple-700"
+                                            : "bg-amber-100 text-amber-700"
                                         }`}>
                                         {product.range}
                                     </span>
@@ -231,9 +243,12 @@ export default function ProductDetailPage() {
 
                             {/* Action Buttons */}
                             <div className="flex gap-4">
-                                <Button className="flex-1 bg-neutral-900 text-white hover:bg-neutral-800 h-12">
-                                    <ShoppingCart className="w-5 h-5 mr-2" />
-                                    Add to Cart
+                                <Button
+                                    onClick={() => setIsContactModalOpen(true)}
+                                    className="flex-1 bg-neutral-900 text-white hover:bg-neutral-800 h-12"
+                                >
+                                    <MessageCircle className="w-5 h-5 mr-2" />
+                                    Contact Us
                                 </Button>
                                 <Button variant="outline" className="h-12 px-4">
                                     <Heart className="w-5 h-5" />

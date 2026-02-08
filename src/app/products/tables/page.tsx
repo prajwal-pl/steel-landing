@@ -4,8 +4,9 @@ import { useState, useMemo } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { ShoppingCart, Heart, ChevronRight, Filter, Grid3X3, LayoutGrid, X } from "lucide-react";
+import { Heart, ChevronRight, Filter, Grid3X3, LayoutGrid, X } from "lucide-react";
 import { tablesProducts, tablesSubcategories, filterProducts, ProductRange } from "@/lib/products";
+import { CategoryHeader } from "@/components/category-header";
 
 export default function TablesPage() {
     const [selectedRange, setSelectedRange] = useState<ProductRange | null>(null);
@@ -28,31 +29,7 @@ export default function TablesPage() {
     return (
         <div className="min-h-screen bg-white">
             {/* Header */}
-            <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b">
-                <div className="container mx-auto px-4 py-4">
-                    <div className="flex items-center justify-between">
-                        <Link href="/" className="text-2xl font-bold text-neutral-900">
-                            Stallion Stainless
-                        </Link>
-                        <nav className="hidden md:flex items-center gap-8">
-                            <Link href="/products/sofas" className="text-sm text-neutral-600 hover:text-neutral-900">Sofas</Link>
-                            <Link href="/products/beds" className="text-sm text-neutral-600 hover:text-neutral-900">Beds</Link>
-                            <Link href="/products/tables" className="text-sm text-neutral-900 font-medium">Tables</Link>
-                            <Link href="/products/chairs" className="text-sm text-neutral-600 hover:text-neutral-900">Chairs</Link>
-                            <Link href="/products" className="text-sm text-neutral-600 hover:text-neutral-900">All Products</Link>
-                            <Link href="/about" className="text-sm text-neutral-600 hover:text-neutral-900">About Us</Link>
-                        </nav>
-                        <div className="flex items-center gap-4">
-                            <button className="p-2 hover:bg-neutral-100 rounded-full">
-                                <Heart className="w-5 h-5" />
-                            </button>
-                            <Link href="/checkout" className="p-2 hover:bg-neutral-100 rounded-full">
-                                <ShoppingCart className="w-5 h-5" />
-                            </Link>
-                        </div>
-                    </div>
-                </div>
-            </header>
+            <CategoryHeader activeCategory="tables" />
 
             <main className="pt-20 pb-20">
                 {/* Breadcrumb */}
@@ -81,11 +58,10 @@ export default function TablesPage() {
                             <button
                                 key={sub.slug}
                                 onClick={() => setSelectedSubcategory(selectedSubcategory === sub.name ? null : sub.name)}
-                                className={`group p-4 border transition-colors text-center ${
-                                    selectedSubcategory === sub.name 
-                                        ? "border-neutral-900 bg-neutral-50" 
+                                className={`group p-4 border transition-colors text-center ${selectedSubcategory === sub.name
+                                        ? "border-neutral-900 bg-neutral-50"
                                         : "border-neutral-200 hover:border-neutral-900"
-                                }`}
+                                    }`}
                             >
                                 <h3 className="font-semibold text-sm group-hover:underline">{sub.name}</h3>
                                 <p className="text-xs text-neutral-500 mt-1">{sub.description}</p>
@@ -103,43 +79,40 @@ export default function TablesPage() {
                                 Filter
                             </Button>
                             <div className="hidden md:flex gap-2">
-                                <Button 
-                                    variant="ghost" 
+                                <Button
+                                    variant="ghost"
                                     onClick={() => setSelectedRange(selectedRange === "Economic" ? null : "Economic")}
-                                    className={`h-9 px-4 rounded-full text-sm ${
-                                        selectedRange === "Economic"
+                                    className={`h-9 px-4 rounded-full text-sm ${selectedRange === "Economic"
                                             ? "bg-green-200 text-green-800 hover:bg-green-300"
                                             : "bg-green-50 text-green-700 hover:bg-green-100"
-                                    }`}
+                                        }`}
                                 >
                                     Economic Range
                                 </Button>
-                                <Button 
-                                    variant="ghost" 
+                                <Button
+                                    variant="ghost"
                                     onClick={() => setSelectedRange(selectedRange === "Exclusive" ? null : "Exclusive")}
-                                    className={`h-9 px-4 rounded-full text-sm ${
-                                        selectedRange === "Exclusive"
+                                    className={`h-9 px-4 rounded-full text-sm ${selectedRange === "Exclusive"
                                             ? "bg-purple-200 text-purple-800 hover:bg-purple-300"
                                             : "bg-purple-50 text-purple-700 hover:bg-purple-100"
-                                    }`}
+                                        }`}
                                 >
                                     Exclusive Range
                                 </Button>
-                                <Button 
-                                    variant="ghost" 
+                                <Button
+                                    variant="ghost"
                                     onClick={() => setSelectedRange(selectedRange === "Custom" ? null : "Custom")}
-                                    className={`h-9 px-4 rounded-full text-sm ${
-                                        selectedRange === "Custom"
+                                    className={`h-9 px-4 rounded-full text-sm ${selectedRange === "Custom"
                                             ? "bg-amber-200 text-amber-800 hover:bg-amber-300"
                                             : "bg-amber-50 text-amber-700 hover:bg-amber-100"
-                                    }`}
+                                        }`}
                                 >
                                     Custom Range
                                 </Button>
                             </div>
                             {hasActiveFilters && (
-                                <Button 
-                                    variant="ghost" 
+                                <Button
+                                    variant="ghost"
                                     onClick={clearFilters}
                                     className="h-9 px-3 text-sm text-neutral-500 hover:text-neutral-900"
                                 >
@@ -176,11 +149,10 @@ export default function TablesPage() {
                                 </span>
                             )}
                             {selectedRange && (
-                                <span className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-sm ${
-                                    selectedRange === "Economic" ? "bg-green-100 text-green-700" :
-                                    selectedRange === "Exclusive" ? "bg-purple-100 text-purple-700" :
-                                    "bg-amber-100 text-amber-700"
-                                }`}>
+                                <span className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-sm ${selectedRange === "Economic" ? "bg-green-100 text-green-700" :
+                                        selectedRange === "Exclusive" ? "bg-purple-100 text-purple-700" :
+                                            "bg-amber-100 text-amber-700"
+                                    }`}>
                                     {selectedRange}
                                     <button onClick={() => setSelectedRange(null)}>
                                         <X className="h-3 w-3" />
@@ -207,11 +179,10 @@ export default function TablesPage() {
                                         <button className="absolute top-3 right-3 h-8 w-8 rounded-full bg-white/90 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                                             <Heart className="h-4 w-4" />
                                         </button>
-                                        <span className={`absolute top-3 left-3 px-2 py-1 text-xs font-medium rounded ${
-                                            product.range === "Economic" ? "bg-green-100 text-green-700" :
-                                            product.range === "Exclusive" ? "bg-purple-100 text-purple-700" :
-                                            "bg-amber-100 text-amber-700"
-                                        }`}>
+                                        <span className={`absolute top-3 left-3 px-2 py-1 text-xs font-medium rounded ${product.range === "Economic" ? "bg-green-100 text-green-700" :
+                                                product.range === "Exclusive" ? "bg-purple-100 text-purple-700" :
+                                                    "bg-amber-100 text-amber-700"
+                                            }`}>
                                             {product.range}
                                         </span>
                                     </div>
