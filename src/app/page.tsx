@@ -4,460 +4,463 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Search, User, ShoppingCart, MapPin, Heart, ChevronRight, Menu } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
+import { LandingWrapper } from "@/components/landing-wrapper";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-white font-sans text-neutral-900">
+    <LandingWrapper>
+      <div className="min-h-screen bg-white font-sans text-neutral-900">
 
-      {/* Top Banner */}
-      <div className="hidden border-b border-neutral-200 bg-neutral-100 px-4 py-1 text-xs font-medium sm:block">
-        <div className="container mx-auto flex justify-between">
-          <div className="flex gap-4">
-            <span>Stallion Stainless</span>
-            <span>Stallion Comfort System</span>
-            <span>Since 1985</span>
-          </div>
-          <div className="flex gap-4">
-            <span className="flex items-center gap-1">Global Shipping <ChevronRight className="h-3 w-3" /></span>
-          </div>
-        </div>
-      </div>
-
-      {/* Main Header */}
-      <header className="sticky top-0 z-50 w-full bg-white">
-        <div className="container mx-auto px-4 py-4 md:py-6">
-          <div className="flex items-center justify-between gap-4">
-            {/* Search Bar */}
-            <div className="hidden md:block w-1/4">
-              <div className="relative">
-                <Input
-                  type="text"
-                  placeholder="What can we help you find?"
-                  className="h-11 rounded-none border-neutral-300 bg-white pl-4 pr-10 text-sm placeholder:text-neutral-500 focus-visible:ring-1 focus-visible:ring-neutral-900"
-                />
-                <Search className="absolute right-3 top-1/2 h-5 w-5 -translate-y-1/2 text-neutral-500" />
-              </div>
+        {/* Top Banner */}
+        <div className="hidden border-b border-neutral-200 bg-neutral-100 px-4 py-1 text-xs font-medium sm:block">
+          <div className="container mx-auto flex justify-between">
+            <div className="flex gap-4">
+              <span>Stallion Stainless</span>
+              <span>Stallion Comfort System</span>
+              <span>Since 1985</span>
             </div>
-
-            {/* Mobile Menu Icon */}
-            <div className="md:hidden">
-              <Menu className="h-6 w-6" />
-            </div>
-
-            {/* Logo */}
-            <div className="flex-1 text-center md:flex-none">
-              <Link href="/" className="text-2xl font-bold tracking-tight md:text-3xl font-serif">
-                STALLION<span className="font-light">STAINLESS</span>
-              </Link>
-            </div>
-
-            {/* Icons */}
-            <div className="flex w-auto md:w-1/4 justify-end items-center gap-4 sm:gap-6">
-              <div className="hidden flex-col items-center gap-1 sm:flex cursor-pointer hover:text-neutral-600">
-                <div className="flex items-center gap-1 text-xs font-semibold">
-                  Orders & Sign In <User className="h-5 w-5" />
-                </div>
-              </div>
-              <MapPin className="h-6 w-6 cursor-pointer hover:text-neutral-600 hidden sm:block" />
-              <Heart className="h-6 w-6 cursor-pointer hover:text-neutral-600 hidden sm:block" />
-              <Link href="/checkout" className="relative cursor-pointer hover:text-neutral-600">
-                <ShoppingCart className="h-6 w-6" />
-                <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-neutral-900 text-[10px] text-white">0</span>
-              </Link>
+            <div className="flex gap-4">
+              <span className="flex items-center gap-1">Global Shipping <ChevronRight className="h-3 w-3" /></span>
             </div>
           </div>
         </div>
 
-        {/* Navigation Categories */}
-        <nav className="hidden border-b border-neutral-200 md:block">
-          <div className="container mx-auto">
-            <ul className="flex justify-center gap-8 py-4 text-sm font-semibold tracking-wide text-neutral-800">
-              {[
-                { name: "Sofas", href: "/products/sofas", sale: true },
-                { name: "Beds", href: "/products/beds" },
-                { name: "Tables", href: "/products/tables" },
-                { name: "Chairs", href: "/products/chairs" },
-                { name: "All Products", href: "/products" },
-                { name: "About Us", href: "/about" },
-              ].map((item) => (
-                <li key={item.name}>
-                  <Link href={item.href} className="cursor-pointer hover:underline underline-offset-4 decoration-neutral-400">
-                    {item.sale ? <span className="text-red-700">{item.name}</span> : item.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </nav>
-      </header>
-
-      {/* Promo Bar */}
-      <div className="bg-[#4a4a4a] py-3 text-white">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-0 text-center text-xs sm:text-sm font-medium tracking-wide">
-            <div className="flex-1 px-4 md:border-r border-neutral-500">
-              1600+ New Industrial Arrivals
-              <span className="block text-[10px] font-normal opacity-80 sm:inline sm:ml-2 sm:text-xs">Shop Now ▸</span>
-            </div>
-            <div className="flex-1 px-4 md:border-r border-neutral-500">
-              Up to 35% off Top Stainless Brands
-              <span className="block text-[10px] font-normal opacity-80 sm:inline sm:ml-2 sm:text-xs">Le Creuset, De'Longhi and More! ▸</span>
-            </div>
-            <div className="flex-1 px-4">
-              Furniture as Fast as 7 Days
-              <span className="block text-[10px] font-normal opacity-80 sm:inline sm:ml-2 sm:text-xs">Shop Now ▸</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <main>
-        {/* Full Screen Hero Section */}
-        <section className="relative h-[600px] w-full overflow-hidden">
-          {/* Background Image */}
-          <div className="absolute inset-0 bg-neutral-200">
-            <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1618219908412-a29a1bb7b86e?q=80&w=2727&auto=format&fit=crop')] bg-cover bg-center" />
-            <div className="absolute inset-0 bg-black/10" />
-          </div>
-
-          {/* Hero Content Overlay */}
-          <div className="relative container mx-auto h-full px-4 flex items-center">
-            <div className="max-w-xl space-y-6 text-white pl-4 md:pl-12">
-              <h1 className="text-4xl md:text-6xl font-semibold leading-tight drop-shadow-md">
-                our bestselling sofas, <br />
-                now with extra comfort
-              </h1>
-              <p className="text-lg font-medium drop-shadow-md opacity-90">
-                Impeccable finish and sturdy construction with stainless steel frames.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                <Link href="/products/sofas">
-                  <Button className="h-12 rounded-full bg-white px-8 text-base font-semibold text-neutral-900 hover:bg-neutral-100 border-none">
-                    Shop Sofas
-                  </Button>
-                </Link>
-                <Link href="/products">
-                  <Button variant="outline" className="h-12 rounded-full bg-white px-8 text-base font-semibold text-neutral-900 hover:bg-neutral-100 border-none">
-                    View Catalogue
-                  </Button>
-                </Link>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Categories Section - "new arrivals: in stock" style */}
-        <section className="py-16 bg-white">
-          <div className="container mx-auto px-4">
-            {/* Pill Title */}
-            <div className="mb-12 flex justify-center">
-              <div className="flex items-center rounded-full bg-neutral-900 px-1 py-1 pr-6 text-white">
-                <span className="rounded-full bg-neutral-800 px-4 py-1.5 text-sm font-semibold">Shop Furniture & Decor</span>
-                <span className="ml-4 text-sm font-medium">Shop Kitchen & Entertaining</span>
-              </div>
-            </div>
-
-            <h2 className="mb-12 text-center text-3xl font-bold tracking-tight md:text-4xl">
-              new arrivals: in stock & ready to ship
-            </h2>
-
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-              {/* Sofas */}
-              <Link href="/products/sofas" className="group cursor-pointer">
-                <div className="overflow-hidden bg-neutral-100 aspect-[4/5] relative">
-                  <img
-                    src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=2000&auto=format&fit=crop"
-                    alt="Premium Sofas"
-                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+        {/* Main Header */}
+        <header className="sticky top-0 z-50 w-full bg-white">
+          <div className="container mx-auto px-4 py-4 md:py-6">
+            <div className="flex items-center justify-between gap-4">
+              {/* Search Bar */}
+              <div className="hidden md:block w-1/4">
+                <div className="relative">
+                  <Input
+                    type="text"
+                    placeholder="What can we help you find?"
+                    className="h-11 rounded-none border-neutral-300 bg-white pl-4 pr-10 text-sm placeholder:text-neutral-500 focus-visible:ring-1 focus-visible:ring-neutral-900"
                   />
-                  <span className="absolute top-3 left-3 px-2 py-1 text-xs font-medium rounded bg-red-100 text-red-700">Sale</span>
-                </div>
-                <div className="mt-4 text-center">
-                  <h3 className="font-semibold text-lg">Premium Sofas</h3>
-                  <p className="text-sm text-neutral-600">Starting at ₹18,000</p>
-                </div>
-              </Link>
-
-              {/* Beds */}
-              <Link href="/products/beds" className="group cursor-pointer">
-                <div className="overflow-hidden bg-neutral-100 aspect-[4/5] relative">
-                  <img
-                    src="https://images.unsplash.com/photo-1615874959474-d609969a20ed?q=80&w=2000&auto=format&fit=crop"
-                    alt="Luxury Beds"
-                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-                </div>
-                <div className="mt-4 text-center">
-                  <h3 className="font-semibold text-lg">Luxury Beds</h3>
-                  <p className="text-sm text-neutral-600">Starting at ₹22,000</p>
-                </div>
-              </Link>
-
-              {/* Tables */}
-              <Link href="/products/tables" className="group cursor-pointer">
-                <div className="overflow-hidden bg-neutral-100 aspect-[4/5] relative">
-                  <img
-                    src="https://images.unsplash.com/photo-1617806118233-18e1de247200?q=80&w=2000&auto=format&fit=crop"
-                    alt="Designer Tables"
-                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-                </div>
-                <div className="mt-4 text-center">
-                  <h3 className="font-semibold text-lg">Designer Tables</h3>
-                  <p className="text-sm text-neutral-600">Starting at ₹15,000</p>
-                </div>
-              </Link>
-
-              {/* Chairs */}
-              <Link href="/products/chairs" className="group cursor-pointer">
-                <div className="overflow-hidden bg-neutral-100 aspect-[4/5] relative">
-                  <img
-                    src="https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?q=80&w=2000&auto=format&fit=crop"
-                    alt="Premium Chairs"
-                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-                </div>
-                <div className="mt-4 text-center">
-                  <h3 className="font-semibold text-lg">Premium Chairs</h3>
-                  <p className="text-sm text-neutral-600">Starting at ₹12,000</p>
-                </div>
-              </Link>
-            </div>
-          </div>
-        </section>
-
-        {/* Lifestyle Banner - "the new coastal cool" style */}
-        <section className="relative overflow-hidden">
-          <div className="aspect-[16/9] md:aspect-[21/9] w-full bg-neutral-200 relative">
-            <img
-              src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070&auto=format&fit=crop"
-              alt="Modern Living Room"
-              className="absolute inset-0 h-full w-full object-cover"
-            />
-            <div className="absolute inset-0 flex flex-col items-center justify-center p-8 text-center bg-black/10">
-              <h2 className="text-4xl md:text-6xl font-bold text-white drop-shadow-lg mb-8">
-                the new industrial cool
-              </h2>
-              <div className="flex flex-col gap-4 sm:flex-row">
-                <Link href="/products">
-                  <Button className="h-12 rounded-full bg-white px-10 text-base font-bold text-neutral-900 hover:bg-neutral-100">
-                    Shop the Look
-                  </Button>
-                </Link>
-                <Link href="/products">
-                  <Button className="h-12 rounded-full bg-white px-10 text-base font-bold text-neutral-900 hover:bg-neutral-100">
-                    Shop 1600+ New Arrivals
-                  </Button>
-                </Link>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Featured Product Split Section - Matches "the new statement bed" */}
-        <section className="py-20 bg-[#F5F2F0]">
-          <div className="container mx-auto px-4">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              <div className="order-2 lg:order-1 relative">
-                <div className="aspect-[4/5] md:aspect-square bg-white shadow-xl overflow-hidden rounded-sm">
-                  <img
-                    src="https://images.unsplash.com/photo-1540574163026-643ea20ade25?q=80&w=2000&auto=format&fit=crop"
-                    alt="Luxury L-Shape Sofa"
-                    className="h-full w-full object-cover"
-                  />
+                  <Search className="absolute right-3 top-1/2 h-5 w-5 -translate-y-1/2 text-neutral-500" />
                 </div>
               </div>
-              <div className="order-1 lg:order-2 space-y-8 lg:pl-12">
-                <h2 className="text-4xl md:text-6xl font-bold tracking-tight text-neutral-900 leading-tight">
-                  the new statement<br />sofa
-                </h2>
-                <div className="flex flex-col gap-4">
-                  <Link href="/products/sofas">
-                    <Button variant="outline" className="w-full sm:w-64 h-12 rounded-full border-2 border-neutral-900 bg-transparent text-neutral-900 hover:bg-neutral-900 hover:text-white font-semibold">
-                      Shop All Sofas
-                    </Button>
-                  </Link>
-                  <Link href="/products/sofas?type=corner">
-                    <Button variant="outline" className="w-full sm:w-64 h-12 rounded-full border-2 border-neutral-900 bg-transparent text-neutral-900 hover:bg-neutral-900 hover:text-white font-semibold">
-                      Shop L-Shape Sofas
-                    </Button>
-                  </Link>
-                </div>
-                <div className="pt-8">
-                  <div className="flex items-start gap-2 max-w-md">
-                    <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-neutral-900"></span>
-                    <div>
-                      <strong className="block font-medium">New! Recliner Collection</strong>
-                      <p className="text-neutral-600 mt-1">
-                        Ultimate comfort meets elegant design. Stainless steel frames with premium upholstery.
-                      </p>
-                    </div>
+
+              {/* Mobile Menu Icon */}
+              <div className="md:hidden">
+                <Menu className="h-6 w-6" />
+              </div>
+
+              {/* Logo */}
+              <div className="flex-1 text-center md:flex-none">
+                <Link href="/" className="text-2xl font-bold tracking-tight md:text-3xl font-serif">
+                  STALLION<span className="font-light">STAINLESS</span>
+                </Link>
+              </div>
+
+              {/* Icons */}
+              <div className="flex w-auto md:w-1/4 justify-end items-center gap-4 sm:gap-6">
+                <div className="hidden flex-col items-center gap-1 sm:flex cursor-pointer hover:text-neutral-600">
+                  <div className="flex items-center gap-1 text-xs font-semibold">
+                    Orders & Sign In <User className="h-5 w-5" />
                   </div>
                 </div>
-                <div className="relative h-64 w-48 mt-8 hidden md:block">
-                  <img
-                    src="https://images.unsplash.com/photo-1550254478-ead40cc54513?q=80&w=2000&auto=format&fit=crop"
-                    className="h-full w-full object-cover shadow-sm"
-                    alt="Recliner sofa detail"
-                  />
-                </div>
+                <MapPin className="h-6 w-6 cursor-pointer hover:text-neutral-600 hidden sm:block" />
+                <Heart className="h-6 w-6 cursor-pointer hover:text-neutral-600 hidden sm:block" />
+                <Link href="/checkout" className="relative cursor-pointer hover:text-neutral-600">
+                  <ShoppingCart className="h-6 w-6" />
+                  <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-neutral-900 text-[10px] text-white">0</span>
+                </Link>
               </div>
             </div>
           </div>
-        </section>
 
-        {/* Range Section */}
-        <section className="py-20 bg-white">
+          {/* Navigation Categories */}
+          <nav className="hidden border-b border-neutral-200 md:block">
+            <div className="container mx-auto">
+              <ul className="flex justify-center gap-8 py-4 text-sm font-semibold tracking-wide text-neutral-800">
+                {[
+                  { name: "Sofas", href: "/products/sofas", sale: true },
+                  { name: "Beds", href: "/products/beds" },
+                  { name: "Tables", href: "/products/tables" },
+                  { name: "Chairs", href: "/products/chairs" },
+                  { name: "All Products", href: "/products" },
+                  { name: "About Us", href: "/about" },
+                ].map((item) => (
+                  <li key={item.name}>
+                    <Link href={item.href} className="cursor-pointer hover:underline underline-offset-4 decoration-neutral-400">
+                      {item.sale ? <span className="text-red-700">{item.name}</span> : item.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </nav>
+        </header>
+
+        {/* Promo Bar */}
+        <div className="bg-[#4a4a4a] py-3 text-white">
           <div className="container mx-auto px-4">
-            <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-center mb-4">Shop by Range</h2>
-            <p className="text-neutral-600 text-center max-w-2xl mx-auto mb-12">
-              Find furniture that fits your budget and style. Choose from our carefully curated ranges.
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <Link href="/products?range=economic" className="group relative overflow-hidden aspect-[4/5]">
-                <img
-                  src="https://images.unsplash.com/photo-1506439773649-6e0eb8cfb237?q=80&w=2000&auto=format&fit=crop"
-                  alt="Economic Range"
-                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-green-900/80 to-transparent" />
-                <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                  <span className="px-3 py-1 bg-green-600 text-xs font-semibold rounded-full mb-3 inline-block">Budget Friendly</span>
-                  <h3 className="text-2xl font-bold mb-2">Economic Range</h3>
-                  <p className="text-sm opacity-90">Quality furniture starting at ₹12,000</p>
-                </div>
-              </Link>
-              <Link href="/products?range=exclusive" className="group relative overflow-hidden aspect-[4/5]">
-                <img
-                  src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=2000&auto=format&fit=crop"
-                  alt="Exclusive Range"
-                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-purple-900/80 to-transparent" />
-                <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                  <span className="px-3 py-1 bg-purple-600 text-xs font-semibold rounded-full mb-3 inline-block">Premium Quality</span>
-                  <h3 className="text-2xl font-bold mb-2">Exclusive Range</h3>
-                  <p className="text-sm opacity-90">Luxury designs from ₹45,000</p>
-                </div>
-              </Link>
-              <Link href="/products?range=custom" className="group relative overflow-hidden aspect-[4/5]">
-                <img
-                  src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=2000&auto=format&fit=crop"
-                  alt="Custom Range"
-                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-amber-900/80 to-transparent" />
-                <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                  <span className="px-3 py-1 bg-amber-600 text-xs font-semibold rounded-full mb-3 inline-block">Made to Order</span>
-                  <h3 className="text-2xl font-bold mb-2">Custom Range</h3>
-                  <p className="text-sm opacity-90">Bespoke furniture tailored for you</p>
-                </div>
-              </Link>
-            </div>
-          </div>
-        </section>
-
-        {/* Text/Content Section */}
-        <section className="bg-neutral-100 py-24 text-center">
-          <div className="container mx-auto px-4 max-w-4xl">
-            <h2 className="text-3xl font-serif md:text-4xl mb-6">Introducing Stallion Comfort System</h2>
-            <div className="h-px w-24 bg-neutral-900 mx-auto mb-8"></div>
-            <p className="text-xl leading-relaxed text-neutral-600 mb-8">
-              Since 1985, we have been involved in manufacturing and supplying a wide assortment of
-              <span className="text-neutral-900 font-semibold"> Premium Sofas, Beds, Tables, and Chairs</span> with stainless steel frames.
-              Under the astute guidance of Mr. Kamalesh Mehta, we deliver products with impeccable finish and sturdy construction.
-            </p>
-            <Link href="/about" className="inline-flex items-center border-b border-neutral-900 pb-1 text-sm font-bold uppercase tracking-widest hover:text-neutral-600">
-              Read Our Story
-            </Link>
-          </div>
-        </section>
-
-      </main>
-
-      {/* Footer */}
-      <footer className="bg-white pt-20 pb-10 border-t border-neutral-200 text-neutral-900 text-sm">
-        <div className="container mx-auto px-4">
-          {/* Newsletter Top */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-16">
-            <div className="space-y-4">
-              <h3 className="text-base font-bold">Contact Us & Store Locator</h3>
-              <p>Questions? Text us: <span className="underline cursor-pointer">(123) 456-7890</span></p>
-              <p><span className="underline cursor-pointer">Chat With Us</span> &nbsp; <span className="underline cursor-pointer">Email Us</span></p>
-            </div>
-            <div className="space-y-4">
-              <h3 className="text-base font-bold">Stallion Trade Program</h3>
-              <p>Earn Reward Dollars every time you shop (excluding special financing purchases)*, plus get access to special offers and events.</p>
-              <Link href="#" className="underline font-semibold block">Apply Now</Link>
-            </div>
-            <div className="space-y-4">
-              <h3 className="text-base font-bold">Our Mobile App</h3>
-              <p>Scan to shop exclusive first looks, get personalized alerts and manage your registry faster and easier than ever before.</p>
-              <div className="h-10 w-32 bg-black rounded-md flex items-center justify-center text-white text-xs">
-                App Store
+            <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-0 text-center text-xs sm:text-sm font-medium tracking-wide">
+              <div className="flex-1 px-4 md:border-r border-neutral-500">
+                1600+ New Industrial Arrivals
+                <span className="block text-[10px] font-normal opacity-80 sm:inline sm:ml-2 sm:text-xs">Shop Now ▸</span>
+              </div>
+              <div className="flex-1 px-4 md:border-r border-neutral-500">
+                Up to 35% off Top Stainless Brands
+                <span className="block text-[10px] font-normal opacity-80 sm:inline sm:ml-2 sm:text-xs">Le Creuset, De'Longhi and More! ▸</span>
+              </div>
+              <div className="flex-1 px-4">
+                Furniture as Fast as 7 Days
+                <span className="block text-[10px] font-normal opacity-80 sm:inline sm:ml-2 sm:text-xs">Shop Now ▸</span>
               </div>
             </div>
-          </div>
-
-          <Separator className="mb-12" />
-
-          {/* Links Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 mb-16">
-            <div>
-              <h4 className="font-bold mb-4">Help</h4>
-              <ul className="space-y-3 text-neutral-600">
-                <li>Customer Service</li>
-                <li>Account</li>
-                <li>Return Policy</li>
-                <li>Shipping Information</li>
-                <li>Product Recalls</li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-bold mb-4">Resources</h4>
-              <ul className="space-y-3 text-neutral-600">
-                <li>Free Design Services</li>
-                <li>Wedding Registry</li>
-                <li>Baby Registry</li>
-                <li>Gift Cards</li>
-                <li>Trade Program</li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-bold mb-4">Our Company</h4>
-              <ul className="space-y-3 text-neutral-600">
-                <li>About Us</li>
-                <li>Careers</li>
-                <li>Responsible Design</li>
-                <li>Accessibility Statement</li>
-              </ul>
-            </div>
-            <div className="col-span-2 lg:col-span-2">
-              <h4 className="font-bold mb-4">Show us your look with:</h4>
-              <div className="flex gap-2 mb-8">
-                <span className="underline">#StallionStyle</span>
-                <span className="underline">#StallionSteel</span>
-              </div>
-              <h4 className="font-bold mb-4">Our Brands</h4>
-              <div className="flex gap-4 font-serif text-xl tracking-tighter">
-                <span>StallionStainless</span>
-                <span className="font-light">ComfortSystem</span>
-              </div>
-            </div>
-          </div>
-
-          <div className="flex flex-col md:flex-row justify-between items-center text-xs text-neutral-500 gap-4">
-            <div className="flex flex-wrap gap-4 justify-center md:justify-start">
-              <span className="underline cursor-pointer">Terms of Use</span>
-              <span className="underline cursor-pointer">Privacy</span>
-              <span className="underline cursor-pointer">Site Index</span>
-              <span className="underline cursor-pointer">Ad Choices</span>
-              <span className="underline cursor-pointer">Cookie Settings</span>
-            </div>
-            <p>&copy; {new Date().getFullYear()} Stallion Stainless. All rights reserved.</p>
           </div>
         </div>
-      </footer>
-    </div>
+
+        <main>
+          {/* Full Screen Hero Section */}
+          <section className="relative h-[600px] w-full overflow-hidden">
+            {/* Background Image */}
+            <div className="absolute inset-0 bg-neutral-200">
+              <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1618219908412-a29a1bb7b86e?q=80&w=2727&auto=format&fit=crop')] bg-cover bg-center" />
+              <div className="absolute inset-0 bg-black/10" />
+            </div>
+
+            {/* Hero Content Overlay */}
+            <div className="relative container mx-auto h-full px-4 flex items-center">
+              <div className="max-w-xl space-y-6 text-white pl-4 md:pl-12">
+                <h1 className="text-4xl md:text-6xl font-semibold leading-tight drop-shadow-md">
+                  our bestselling sofas, <br />
+                  now with extra comfort
+                </h1>
+                <p className="text-lg font-medium drop-shadow-md opacity-90">
+                  Impeccable finish and sturdy construction with stainless steel frames.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 pt-4">
+                  <Link href="/products/sofas">
+                    <Button className="h-12 rounded-full bg-white px-8 text-base font-semibold text-neutral-900 hover:bg-neutral-100 border-none">
+                      Shop Sofas
+                    </Button>
+                  </Link>
+                  <Link href="/products">
+                    <Button variant="outline" className="h-12 rounded-full bg-white px-8 text-base font-semibold text-neutral-900 hover:bg-neutral-100 border-none">
+                      View Catalogue
+                    </Button>
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Categories Section - "new arrivals: in stock" style */}
+          <section className="py-16 bg-white">
+            <div className="container mx-auto px-4">
+              {/* Pill Title */}
+              <div className="mb-12 flex justify-center">
+                <div className="flex items-center rounded-full bg-neutral-900 px-1 py-1 pr-6 text-white">
+                  <span className="rounded-full bg-neutral-800 px-4 py-1.5 text-sm font-semibold">Shop Furniture & Decor</span>
+                  <span className="ml-4 text-sm font-medium">Shop Kitchen & Entertaining</span>
+                </div>
+              </div>
+
+              <h2 className="mb-12 text-center text-3xl font-bold tracking-tight md:text-4xl">
+                new arrivals: in stock & ready to ship
+              </h2>
+
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+                {/* Sofas */}
+                <Link href="/products/sofas" className="group cursor-pointer">
+                  <div className="overflow-hidden bg-neutral-100 aspect-[4/5] relative">
+                    <img
+                      src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=2000&auto=format&fit=crop"
+                      alt="Premium Sofas"
+                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                    <span className="absolute top-3 left-3 px-2 py-1 text-xs font-medium rounded bg-red-100 text-red-700">Sale</span>
+                  </div>
+                  <div className="mt-4 text-center">
+                    <h3 className="font-semibold text-lg">Premium Sofas</h3>
+                    <p className="text-sm text-neutral-600">Starting at ₹18,000</p>
+                  </div>
+                </Link>
+
+                {/* Beds */}
+                <Link href="/products/beds" className="group cursor-pointer">
+                  <div className="overflow-hidden bg-neutral-100 aspect-[4/5] relative">
+                    <img
+                      src="https://images.unsplash.com/photo-1615874959474-d609969a20ed?q=80&w=2000&auto=format&fit=crop"
+                      alt="Luxury Beds"
+                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                  </div>
+                  <div className="mt-4 text-center">
+                    <h3 className="font-semibold text-lg">Luxury Beds</h3>
+                    <p className="text-sm text-neutral-600">Starting at ₹22,000</p>
+                  </div>
+                </Link>
+
+                {/* Tables */}
+                <Link href="/products/tables" className="group cursor-pointer">
+                  <div className="overflow-hidden bg-neutral-100 aspect-[4/5] relative">
+                    <img
+                      src="https://images.unsplash.com/photo-1617806118233-18e1de247200?q=80&w=2000&auto=format&fit=crop"
+                      alt="Designer Tables"
+                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                  </div>
+                  <div className="mt-4 text-center">
+                    <h3 className="font-semibold text-lg">Designer Tables</h3>
+                    <p className="text-sm text-neutral-600">Starting at ₹15,000</p>
+                  </div>
+                </Link>
+
+                {/* Chairs */}
+                <Link href="/products/chairs" className="group cursor-pointer">
+                  <div className="overflow-hidden bg-neutral-100 aspect-[4/5] relative">
+                    <img
+                      src="https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?q=80&w=2000&auto=format&fit=crop"
+                      alt="Premium Chairs"
+                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                  </div>
+                  <div className="mt-4 text-center">
+                    <h3 className="font-semibold text-lg">Premium Chairs</h3>
+                    <p className="text-sm text-neutral-600">Starting at ₹12,000</p>
+                  </div>
+                </Link>
+              </div>
+            </div>
+          </section>
+
+          {/* Lifestyle Banner - "the new coastal cool" style */}
+          <section className="relative overflow-hidden">
+            <div className="aspect-[16/9] md:aspect-[21/9] w-full bg-neutral-200 relative">
+              <img
+                src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070&auto=format&fit=crop"
+                alt="Modern Living Room"
+                className="absolute inset-0 h-full w-full object-cover"
+              />
+              <div className="absolute inset-0 flex flex-col items-center justify-center p-8 text-center bg-black/10">
+                <h2 className="text-4xl md:text-6xl font-bold text-white drop-shadow-lg mb-8">
+                  the new industrial cool
+                </h2>
+                <div className="flex flex-col gap-4 sm:flex-row">
+                  <Link href="/products">
+                    <Button className="h-12 rounded-full bg-white px-10 text-base font-bold text-neutral-900 hover:bg-neutral-100">
+                      Shop the Look
+                    </Button>
+                  </Link>
+                  <Link href="/products">
+                    <Button className="h-12 rounded-full bg-white px-10 text-base font-bold text-neutral-900 hover:bg-neutral-100">
+                      Shop 1600+ New Arrivals
+                    </Button>
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Featured Product Split Section - Matches "the new statement bed" */}
+          <section className="py-20 bg-[#F5F2F0]">
+            <div className="container mx-auto px-4">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div className="order-2 lg:order-1 relative">
+                  <div className="aspect-[4/5] md:aspect-square bg-white shadow-xl overflow-hidden rounded-sm">
+                    <img
+                      src="https://images.unsplash.com/photo-1540574163026-643ea20ade25?q=80&w=2000&auto=format&fit=crop"
+                      alt="Luxury L-Shape Sofa"
+                      className="h-full w-full object-cover"
+                    />
+                  </div>
+                </div>
+                <div className="order-1 lg:order-2 space-y-8 lg:pl-12">
+                  <h2 className="text-4xl md:text-6xl font-bold tracking-tight text-neutral-900 leading-tight">
+                    the new statement<br />sofa
+                  </h2>
+                  <div className="flex flex-col gap-4">
+                    <Link href="/products/sofas">
+                      <Button variant="outline" className="w-full sm:w-64 h-12 rounded-full border-2 border-neutral-900 bg-transparent text-neutral-900 hover:bg-neutral-900 hover:text-white font-semibold">
+                        Shop All Sofas
+                      </Button>
+                    </Link>
+                    <Link href="/products/sofas?type=corner">
+                      <Button variant="outline" className="w-full sm:w-64 h-12 rounded-full border-2 border-neutral-900 bg-transparent text-neutral-900 hover:bg-neutral-900 hover:text-white font-semibold">
+                        Shop L-Shape Sofas
+                      </Button>
+                    </Link>
+                  </div>
+                  <div className="pt-8">
+                    <div className="flex items-start gap-2 max-w-md">
+                      <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-neutral-900"></span>
+                      <div>
+                        <strong className="block font-medium">New! Recliner Collection</strong>
+                        <p className="text-neutral-600 mt-1">
+                          Ultimate comfort meets elegant design. Stainless steel frames with premium upholstery.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="relative h-64 w-48 mt-8 hidden md:block">
+                    <img
+                      src="https://images.unsplash.com/photo-1550254478-ead40cc54513?q=80&w=2000&auto=format&fit=crop"
+                      className="h-full w-full object-cover shadow-sm"
+                      alt="Recliner sofa detail"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Range Section */}
+          <section className="py-20 bg-white">
+            <div className="container mx-auto px-4">
+              <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-center mb-4">Shop by Range</h2>
+              <p className="text-neutral-600 text-center max-w-2xl mx-auto mb-12">
+                Find furniture that fits your budget and style. Choose from our carefully curated ranges.
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <Link href="/products?range=economic" className="group relative overflow-hidden aspect-[4/5]">
+                  <img
+                    src="https://images.unsplash.com/photo-1506439773649-6e0eb8cfb237?q=80&w=2000&auto=format&fit=crop"
+                    alt="Economic Range"
+                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-green-900/80 to-transparent" />
+                  <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                    <span className="px-3 py-1 bg-green-600 text-xs font-semibold rounded-full mb-3 inline-block">Budget Friendly</span>
+                    <h3 className="text-2xl font-bold mb-2">Economic Range</h3>
+                    <p className="text-sm opacity-90">Quality furniture starting at ₹12,000</p>
+                  </div>
+                </Link>
+                <Link href="/products?range=exclusive" className="group relative overflow-hidden aspect-[4/5]">
+                  <img
+                    src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=2000&auto=format&fit=crop"
+                    alt="Exclusive Range"
+                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-purple-900/80 to-transparent" />
+                  <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                    <span className="px-3 py-1 bg-purple-600 text-xs font-semibold rounded-full mb-3 inline-block">Premium Quality</span>
+                    <h3 className="text-2xl font-bold mb-2">Exclusive Range</h3>
+                    <p className="text-sm opacity-90">Luxury designs from ₹45,000</p>
+                  </div>
+                </Link>
+                <Link href="/products?range=custom" className="group relative overflow-hidden aspect-[4/5]">
+                  <img
+                    src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=2000&auto=format&fit=crop"
+                    alt="Custom Range"
+                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-amber-900/80 to-transparent" />
+                  <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                    <span className="px-3 py-1 bg-amber-600 text-xs font-semibold rounded-full mb-3 inline-block">Made to Order</span>
+                    <h3 className="text-2xl font-bold mb-2">Custom Range</h3>
+                    <p className="text-sm opacity-90">Bespoke furniture tailored for you</p>
+                  </div>
+                </Link>
+              </div>
+            </div>
+          </section>
+
+          {/* Text/Content Section */}
+          <section className="bg-neutral-100 py-24 text-center">
+            <div className="container mx-auto px-4 max-w-4xl">
+              <h2 className="text-3xl font-serif md:text-4xl mb-6">Introducing Stallion Comfort System</h2>
+              <div className="h-px w-24 bg-neutral-900 mx-auto mb-8"></div>
+              <p className="text-xl leading-relaxed text-neutral-600 mb-8">
+                Since 1985, we have been involved in manufacturing and supplying a wide assortment of
+                <span className="text-neutral-900 font-semibold"> Premium Sofas, Beds, Tables, and Chairs</span> with stainless steel frames.
+                Under the astute guidance of Mr. Kamalesh Mehta, we deliver products with impeccable finish and sturdy construction.
+              </p>
+              <Link href="/about" className="inline-flex items-center border-b border-neutral-900 pb-1 text-sm font-bold uppercase tracking-widest hover:text-neutral-600">
+                Read Our Story
+              </Link>
+            </div>
+          </section>
+
+        </main>
+
+        {/* Footer */}
+        <footer className="bg-white pt-20 pb-10 border-t border-neutral-200 text-neutral-900 text-sm">
+          <div className="container mx-auto px-4">
+            {/* Newsletter Top */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-16">
+              <div className="space-y-4">
+                <h3 className="text-base font-bold">Contact Us & Store Locator</h3>
+                <p>Questions? Text us: <span className="underline cursor-pointer">(123) 456-7890</span></p>
+                <p><span className="underline cursor-pointer">Chat With Us</span> &nbsp; <span className="underline cursor-pointer">Email Us</span></p>
+              </div>
+              <div className="space-y-4">
+                <h3 className="text-base font-bold">Stallion Trade Program</h3>
+                <p>Earn Reward Dollars every time you shop (excluding special financing purchases)*, plus get access to special offers and events.</p>
+                <Link href="#" className="underline font-semibold block">Apply Now</Link>
+              </div>
+              <div className="space-y-4">
+                <h3 className="text-base font-bold">Our Mobile App</h3>
+                <p>Scan to shop exclusive first looks, get personalized alerts and manage your registry faster and easier than ever before.</p>
+                <div className="h-10 w-32 bg-black rounded-md flex items-center justify-center text-white text-xs">
+                  App Store
+                </div>
+              </div>
+            </div>
+
+            <Separator className="mb-12" />
+
+            {/* Links Grid */}
+            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 mb-16">
+              <div>
+                <h4 className="font-bold mb-4">Help</h4>
+                <ul className="space-y-3 text-neutral-600">
+                  <li>Customer Service</li>
+                  <li>Account</li>
+                  <li>Return Policy</li>
+                  <li>Shipping Information</li>
+                  <li>Product Recalls</li>
+                </ul>
+              </div>
+              <div>
+                <h4 className="font-bold mb-4">Resources</h4>
+                <ul className="space-y-3 text-neutral-600">
+                  <li>Free Design Services</li>
+                  <li>Wedding Registry</li>
+                  <li>Baby Registry</li>
+                  <li>Gift Cards</li>
+                  <li>Trade Program</li>
+                </ul>
+              </div>
+              <div>
+                <h4 className="font-bold mb-4">Our Company</h4>
+                <ul className="space-y-3 text-neutral-600">
+                  <li>About Us</li>
+                  <li>Careers</li>
+                  <li>Responsible Design</li>
+                  <li>Accessibility Statement</li>
+                </ul>
+              </div>
+              <div className="col-span-2 lg:col-span-2">
+                <h4 className="font-bold mb-4">Show us your look with:</h4>
+                <div className="flex gap-2 mb-8">
+                  <span className="underline">#StallionStyle</span>
+                  <span className="underline">#StallionSteel</span>
+                </div>
+                <h4 className="font-bold mb-4">Our Brands</h4>
+                <div className="flex gap-4 font-serif text-xl tracking-tighter">
+                  <span>StallionStainless</span>
+                  <span className="font-light">ComfortSystem</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex flex-col md:flex-row justify-between items-center text-xs text-neutral-500 gap-4">
+              <div className="flex flex-wrap gap-4 justify-center md:justify-start">
+                <span className="underline cursor-pointer">Terms of Use</span>
+                <span className="underline cursor-pointer">Privacy</span>
+                <span className="underline cursor-pointer">Site Index</span>
+                <span className="underline cursor-pointer">Ad Choices</span>
+                <span className="underline cursor-pointer">Cookie Settings</span>
+              </div>
+              <p>&copy; {new Date().getFullYear()} Stallion Stainless. All rights reserved.</p>
+            </div>
+          </div>
+        </footer>
+      </div>
+    </LandingWrapper>
   );
 }
