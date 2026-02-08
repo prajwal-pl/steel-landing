@@ -19,6 +19,7 @@ import {
 import { useState } from "react";
 import { getProductById } from "@/lib/products";
 import { ContactModal } from "@/components/contact-modal";
+import { StallionLogo } from "@/components/stallion-logo";
 
 export default function ProductDetailPage() {
     const params = useParams();
@@ -36,9 +37,7 @@ export default function ProductDetailPage() {
                 <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b">
                     <div className="container mx-auto px-4 py-4">
                         <div className="flex items-center justify-between">
-                            <Link href="/" className="text-2xl font-bold text-neutral-900">
-                                Stallion Stainless
-                            </Link>
+                            <StallionLogo size="sm" />
                             <nav className="hidden md:flex items-center gap-8">
                                 <Link href="/products/sofas" className="text-sm text-neutral-600 hover:text-neutral-900">Sofas</Link>
                                 <Link href="/products/beds" className="text-sm text-neutral-600 hover:text-neutral-900">Beds</Link>
@@ -82,9 +81,7 @@ export default function ProductDetailPage() {
             <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b">
                 <div className="container mx-auto px-4 py-4">
                     <div className="flex items-center justify-between">
-                        <Link href="/" className="text-2xl font-bold text-neutral-900">
-                            Stallion Stainless
-                        </Link>
+                        <StallionLogo size="sm" />
                         <nav className="hidden md:flex items-center gap-8">
                             <Link href="/products/sofas" className="text-sm text-neutral-600 hover:text-neutral-900">Sofas</Link>
                             <Link href="/products/beds" className="text-sm text-neutral-600 hover:text-neutral-900">Beds</Link>
@@ -129,34 +126,18 @@ export default function ProductDetailPage() {
                     </div>
 
                     <div className="grid lg:grid-cols-2 gap-12">
-                        {/* Image Gallery */}
-                        <div className="space-y-4">
-                            <div className="relative aspect-square bg-neutral-100 rounded-lg overflow-hidden">
-                                <Image
-                                    src={product.images[selectedImage]}
-                                    alt={product.name}
-                                    fill
-                                    className="object-cover"
-                                    priority
-                                />
-                                {/* Range Badge */}
-                                <div className="absolute top-4 left-4">
-                                    <span className={`px-3 py-1 text-sm font-medium rounded-full ${product.range === "Economic"
-                                        ? "bg-green-100 text-green-700"
-                                        : product.range === "Exclusive"
-                                            ? "bg-purple-100 text-purple-700"
-                                            : "bg-amber-100 text-amber-700"
-                                        }`}>
-                                        {product.range}
-                                    </span>
-                                </div>
-                            </div>
-                            <div className="grid grid-cols-4 gap-4">
+                        {/* Image Gallery - Vertical Thumbnails Layout */}
+                        <div className="flex gap-4">
+                            {/* Thumbnail Column */}
+                            <div className="flex flex-col gap-3 w-20 shrink-0">
+                                {/* Product Images */}
                                 {product.images.map((image, index) => (
                                     <button
                                         key={index}
                                         onClick={() => setSelectedImage(index)}
-                                        className={`relative aspect-square bg-neutral-100 rounded-lg overflow-hidden ${selectedImage === index ? "ring-2 ring-neutral-900" : ""
+                                        className={`relative aspect-square bg-neutral-100 rounded-lg overflow-hidden border-2 transition-all ${selectedImage === index
+                                            ? "border-neutral-900"
+                                            : "border-transparent hover:border-neutral-300"
                                             }`}
                                     >
                                         <Image
@@ -167,6 +148,59 @@ export default function ProductDetailPage() {
                                         />
                                     </button>
                                 ))}
+
+                                {/* Customer Images Section */}
+                                <div className="mt-4 pt-4 border-t border-neutral-200">
+                                    <p className="text-xs font-semibold text-neutral-700 mb-2">Customer Images</p>
+                                    <div className="flex flex-col gap-2">
+                                        {[
+                                            "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=200&auto=format&fit=crop",
+                                            "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?q=80&w=200&auto=format&fit=crop",
+                                            "https://images.unsplash.com/photo-1506439773649-6e0eb8cfb237?q=80&w=200&auto=format&fit=crop",
+                                        ].map((img, index) => (
+                                            <button
+                                                key={`customer-${index}`}
+                                                className="relative aspect-square bg-neutral-100 rounded-lg overflow-hidden border border-neutral-200 hover:border-neutral-400 transition-all"
+                                            >
+                                                <Image
+                                                    src={img}
+                                                    alt={`Customer image ${index + 1}`}
+                                                    fill
+                                                    className="object-cover"
+                                                />
+                                            </button>
+                                        ))}
+                                        <button className="text-xs text-neutral-500 hover:text-neutral-900 underline text-left mt-1">
+                                            View All
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Main Image */}
+                            <div className="flex-1">
+                                <div className="aspect-square bg-neutral-100 rounded-lg overflow-hidden sticky top-28">
+                                    <div className="relative w-full h-full">
+                                        <Image
+                                            src={product.images[selectedImage]}
+                                            alt={product.name}
+                                            fill
+                                            className="object-cover"
+                                            priority
+                                        />
+                                        {/* Range Badge */}
+                                        <div className="absolute top-4 left-4">
+                                            <span className={`px-3 py-1 text-sm font-medium rounded-full ${product.range === "Economic"
+                                                ? "bg-green-100 text-green-700"
+                                                : product.range === "Exclusive"
+                                                    ? "bg-purple-100 text-purple-700"
+                                                    : "bg-amber-100 text-amber-700"
+                                                }`}>
+                                                {product.range}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
@@ -289,7 +323,16 @@ export default function ProductDetailPage() {
                 <div className="container mx-auto px-4">
                     <div className="grid md:grid-cols-4 gap-8">
                         <div>
-                            <h3 className="text-lg font-bold mb-4">Stallion Stainless</h3>
+                            <h3
+                                className="text-lg font-bold mb-4"
+                                style={{
+                                    fontFamily: "var(--font-bebas-neue), 'Bebas Neue', 'Arial Narrow', sans-serif",
+                                    transform: "skewX(-8deg)",
+                                    display: "inline-block"
+                                }}
+                            >
+                                <span>STALLION</span><span className="font-normal opacity-70">STAINLESS</span>
+                            </h3>
                             <p className="text-neutral-400 text-sm">
                                 Premium stainless steel furniture for modern living spaces.
                             </p>

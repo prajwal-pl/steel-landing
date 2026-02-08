@@ -210,7 +210,16 @@ export default function SofasPage() {
                 <div className="container mx-auto px-4">
                     <div className="grid md:grid-cols-4 gap-8">
                         <div>
-                            <h3 className="text-lg font-bold mb-4">Stallion Stainless</h3>
+                            <h3
+                                className="text-lg font-bold mb-4"
+                                style={{
+                                    fontFamily: "var(--font-bebas-neue), 'Bebas Neue', 'Arial Narrow', sans-serif",
+                                    transform: "skewX(-8deg)",
+                                    display: "inline-block"
+                                }}
+                            >
+                                <span>STALLION</span><span className="font-normal opacity-70">STAINLESS</span>
+                            </h3>
                             <p className="text-neutral-400 text-sm">
                                 Premium stainless steel furniture for modern living spaces.
                             </p>

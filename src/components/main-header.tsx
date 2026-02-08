@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Input } from "@/components/ui/input";
 import { Search, User, MapPin, Heart, Phone, Menu } from "lucide-react";
 import { ContactModal } from "@/components/contact-modal";
+import { StallionLogo } from "@/components/stallion-logo";
 
 export function MainHeader() {
     const [isContactModalOpen, setIsContactModalOpen] = useState(false);
@@ -38,9 +39,7 @@ export function MainHeader() {
 
                         {/* Logo */}
                         <div className="flex-1 text-center md:flex-none">
-                            <Link href="/" className="text-2xl font-bold tracking-tight md:text-3xl font-serif">
-                                STALLION<span className="font-light">STAINLESS</span>
-                            </Link>
+                            <StallionLogo size="md" />
                         </div>
 
                         {/* Icons */}

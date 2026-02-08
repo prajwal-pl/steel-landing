@@ -94,8 +94,8 @@ export default function ProductsPage() {
                                     variant="ghost"
                                     onClick={() => setSelectedRange(selectedRange === "Economic" ? null : "Economic")}
                                     className={`h-9 px-4 rounded-full text-sm ${selectedRange === "Economic"
-                                            ? "bg-green-200 text-green-800 hover:bg-green-300"
-                                            : "bg-green-50 text-green-700 hover:bg-green-100"
+                                        ? "bg-green-200 text-green-800 hover:bg-green-300"
+                                        : "bg-green-50 text-green-700 hover:bg-green-100"
                                         }`}
                                 >
                                     Economic Range
@@ -104,8 +104,8 @@ export default function ProductsPage() {
                                     variant="ghost"
                                     onClick={() => setSelectedRange(selectedRange === "Exclusive" ? null : "Exclusive")}
                                     className={`h-9 px-4 rounded-full text-sm ${selectedRange === "Exclusive"
-                                            ? "bg-purple-200 text-purple-800 hover:bg-purple-300"
-                                            : "bg-purple-50 text-purple-700 hover:bg-purple-100"
+                                        ? "bg-purple-200 text-purple-800 hover:bg-purple-300"
+                                        : "bg-purple-50 text-purple-700 hover:bg-purple-100"
                                         }`}
                                 >
                                     Exclusive Range
@@ -114,8 +114,8 @@ export default function ProductsPage() {
                                     variant="ghost"
                                     onClick={() => setSelectedRange(selectedRange === "Custom" ? null : "Custom")}
                                     className={`h-9 px-4 rounded-full text-sm ${selectedRange === "Custom"
-                                            ? "bg-amber-200 text-amber-800 hover:bg-amber-300"
-                                            : "bg-amber-50 text-amber-700 hover:bg-amber-100"
+                                        ? "bg-amber-200 text-amber-800 hover:bg-amber-300"
+                                        : "bg-amber-50 text-amber-700 hover:bg-amber-100"
                                         }`}
                                 >
                                     Custom Range
@@ -161,8 +161,8 @@ export default function ProductsPage() {
                             )}
                             {selectedRange && (
                                 <span className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-sm ${selectedRange === "Economic" ? "bg-green-100 text-green-700" :
-                                        selectedRange === "Exclusive" ? "bg-purple-100 text-purple-700" :
-                                            "bg-amber-100 text-amber-700"
+                                    selectedRange === "Exclusive" ? "bg-purple-100 text-purple-700" :
+                                        "bg-amber-100 text-amber-700"
                                     }`}>
                                     {selectedRange}
                                     <button onClick={() => setSelectedRange(null)}>
@@ -191,8 +191,8 @@ export default function ProductsPage() {
                                             <Heart className="h-4 w-4" />
                                         </button>
                                         <span className={`absolute top-3 left-3 px-2 py-1 text-xs font-medium rounded ${product.range === "Economic" ? "bg-green-100 text-green-700" :
-                                                product.range === "Exclusive" ? "bg-purple-100 text-purple-700" :
-                                                    "bg-amber-100 text-amber-700"
+                                            product.range === "Exclusive" ? "bg-purple-100 text-purple-700" :
+                                                "bg-amber-100 text-amber-700"
                                             }`}>
                                             {product.range}
                                         </span>
@@ -221,7 +221,16 @@ export default function ProductsPage() {
                 <div className="container mx-auto px-4">
                     <div className="grid md:grid-cols-4 gap-8">
                         <div>
-                            <h3 className="text-lg font-bold mb-4">Stallion Stainless</h3>
+                            <h3
+                                className="text-lg font-bold mb-4"
+                                style={{
+                                    fontFamily: "var(--font-bebas-neue), 'Bebas Neue', 'Arial Narrow', sans-serif",
+                                    transform: "skewX(-8deg)",
+                                    display: "inline-block"
+                                }}
+                            >
+                                <span>STALLION</span><span className="font-normal opacity-70">STAINLESS</span>
+                            </h3>
                             <p className="text-neutral-400 text-sm">
                                 Premium stainless steel furniture for modern living spaces.
                             </p>

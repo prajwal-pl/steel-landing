@@ -107,8 +107,15 @@ export function IntroVideo({ onComplete }: IntroVideoProps) {
             </button>
 
             {/* Brand watermark */}
-            <div className="absolute top-8 left-8 text-white/60 text-lg font-serif tracking-wide">
-                STALLION<span className="font-light">STAINLESS</span>
+            <div
+                className="absolute top-8 left-8 text-white/60 text-lg tracking-wide"
+                style={{
+                    fontFamily: "var(--font-bebas-neue), 'Bebas Neue', 'Arial Narrow', sans-serif",
+                    transform: "skewX(-8deg)",
+                }}
+            >
+                <span className="font-bold">STALLION</span>
+                <span className="font-normal opacity-70">STAINLESS</span>
             </div>
         </div>
     );
