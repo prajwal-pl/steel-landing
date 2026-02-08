@@ -1,168 +1,63 @@
+"use client";
+
+import { useState, useMemo } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Search, User, ShoppingCart, MapPin, Heart, ChevronRight, Menu, Filter, Grid3X3, LayoutGrid } from "lucide-react";
-
-const categories = [
-    { name: "Sofas", slug: "sofas", image: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=2000&auto=format&fit=crop", count: 24 },
-    { name: "Beds", slug: "beds", image: "https://images.unsplash.com/photo-1615874959474-d609969a20ed?q=80&w=2000&auto=format&fit=crop", count: 18 },
-    { name: "Tables", slug: "tables", image: "https://images.unsplash.com/photo-1617806118233-18e1de247200?q=80&w=2000&auto=format&fit=crop", count: 32 },
-    { name: "Chairs", slug: "chairs", image: "https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?q=80&w=2000&auto=format&fit=crop", count: 28 },
-];
-
-const products = [
-    {
-        id: 101,
-        name: "Luxury 3-Seater Straight Sofa",
-        price: "₹75,000",
-        image: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=2000&auto=format&fit=crop",
-        category: "Sofas",
-        range: "Exclusive",
-    },
-    {
-        id: 201,
-        name: "Modern SS Frame Single Bed",
-        price: "₹28,000",
-        image: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?q=80&w=2000&auto=format&fit=crop",
-        category: "Beds",
-        range: "Economic",
-    },
-    {
-        id: 301,
-        name: "6-Seater SS Dining Table",
-        price: "₹65,000",
-        image: "https://images.unsplash.com/photo-1617806118233-18e1de247200?q=80&w=2000&auto=format&fit=crop",
-        category: "Tables",
-        range: "Exclusive",
-    },
-    {
-        id: 401,
-        name: "Modern SS Dining Chair Set (4)",
-        price: "₹32,000",
-        image: "https://images.unsplash.com/photo-1506439773649-6e0eb8cfb237?q=80&w=2000&auto=format&fit=crop",
-        category: "Chairs",
-        range: "Exclusive",
-    },
-    {
-        id: 102,
-        name: "Modern L-Shape Corner Sofa",
-        price: "₹95,000",
-        image: "https://images.unsplash.com/photo-1540574163026-643ea20ade25?q=80&w=2000&auto=format&fit=crop",
-        category: "Sofas",
-        range: "Custom",
-    },
-    {
-        id: 202,
-        name: "Premium Double Bed with Headboard",
-        price: "₹55,000",
-        image: "https://images.unsplash.com/photo-1588046130717-0eb0c9a3ba15?q=80&w=2000&auto=format&fit=crop",
-        category: "Beds",
-        range: "Exclusive",
-    },
-    {
-        id: 302,
-        name: "Modern Glass Coffee Table",
-        price: "₹28,000",
-        image: "https://images.unsplash.com/photo-1533090481720-856c6e3c1fdc?q=80&w=2000&auto=format&fit=crop",
-        category: "Tables",
-        range: "Economic",
-    },
-    {
-        id: 402,
-        name: "Ergonomic Office Chair",
-        price: "₹28,000",
-        image: "https://images.unsplash.com/photo-1580480055273-228ff5388ef8?q=80&w=2000&auto=format&fit=crop",
-        category: "Chairs",
-        range: "Exclusive",
-    },
-];
+import { ShoppingCart, Heart, ChevronRight, Filter, Grid3X3, LayoutGrid, X } from "lucide-react";
+import { allProducts, categories, filterProducts, ProductRange, ProductCategory } from "@/lib/products";
 
 export default function ProductsPage() {
+    const [selectedRange, setSelectedRange] = useState<ProductRange | null>(null);
+    const [selectedCategory, setSelectedCategory] = useState<ProductCategory | null>(null);
+
+    const filteredProducts = useMemo(() => {
+        let filtered = allProducts;
+        if (selectedCategory) {
+            filtered = filtered.filter(p => p.category === selectedCategory);
+        }
+        return filterProducts(filtered, {
+            range: selectedRange,
+        });
+    }, [selectedRange, selectedCategory]);
+
+    const clearFilters = () => {
+        setSelectedRange(null);
+        setSelectedCategory(null);
+    };
+
+    const hasActiveFilters = selectedRange || selectedCategory;
+
     return (
-        <div className="min-h-screen bg-white font-sans text-neutral-900">
-            {/* Top Banner */}
-            <div className="hidden border-b border-neutral-200 bg-neutral-100 px-4 py-1 text-xs font-medium sm:block">
-                <div className="container mx-auto flex justify-between">
-                    <div className="flex gap-4">
-                        <span>Stallion Stainless</span>
-                        <span>Stallion Comfort System</span>
-                        <span>Since 1985</span>
-                    </div>
-                    <div className="flex gap-4">
-                        <span className="flex items-center gap-1">Global Shipping <ChevronRight className="h-3 w-3" /></span>
-                    </div>
-                </div>
-            </div>
-
-            {/* Main Header */}
-            <header className="sticky top-0 z-50 w-full bg-white">
-                <div className="container mx-auto px-4 py-4 md:py-6">
-                    <div className="flex items-center justify-between gap-4">
-                        {/* Search Bar */}
-                        <div className="hidden md:block w-1/4">
-                            <div className="relative">
-                                <Input
-                                    type="text"
-                                    placeholder="What can we help you find?"
-                                    className="h-11 rounded-none border-neutral-300 bg-white pl-4 pr-10 text-sm placeholder:text-neutral-500 focus-visible:ring-1 focus-visible:ring-neutral-900"
-                                />
-                                <Search className="absolute right-3 top-1/2 h-5 w-5 -translate-y-1/2 text-neutral-500" />
-                            </div>
-                        </div>
-
-                        {/* Mobile Menu Icon */}
-                        <div className="md:hidden">
-                            <Menu className="h-6 w-6" />
-                        </div>
-
-                        {/* Logo */}
-                        <div className="flex-1 text-center md:flex-none">
-                            <Link href="/" className="text-2xl font-bold tracking-tight md:text-3xl font-serif">
-                                STALLION<span className="font-light">STAINLESS</span>
-                            </Link>
-                        </div>
-
-                        {/* Icons */}
-                        <div className="flex w-auto md:w-1/4 justify-end items-center gap-4 sm:gap-6">
-                            <div className="hidden flex-col items-center gap-1 sm:flex cursor-pointer hover:text-neutral-600">
-                                <div className="flex items-center gap-1 text-xs font-semibold">
-                                    Orders & Sign In <User className="h-5 w-5" />
-                                </div>
-                            </div>
-                            <MapPin className="h-6 w-6 cursor-pointer hover:text-neutral-600 hidden sm:block" />
-                            <Heart className="h-6 w-6 cursor-pointer hover:text-neutral-600 hidden sm:block" />
-                            <Link href="/checkout" className="relative cursor-pointer hover:text-neutral-600">
-                                <ShoppingCart className="h-6 w-6" />
-                                <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-neutral-900 text-[10px] text-white">0</span>
+        <div className="min-h-screen bg-white">
+            {/* Header */}
+            <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b">
+                <div className="container mx-auto px-4 py-4">
+                    <div className="flex items-center justify-between">
+                        <Link href="/" className="text-2xl font-bold text-neutral-900">
+                            Stallion Stainless
+                        </Link>
+                        <nav className="hidden md:flex items-center gap-8">
+                            <Link href="/products/sofas" className="text-sm text-neutral-600 hover:text-neutral-900">Sofas</Link>
+                            <Link href="/products/beds" className="text-sm text-neutral-600 hover:text-neutral-900">Beds</Link>
+                            <Link href="/products/tables" className="text-sm text-neutral-600 hover:text-neutral-900">Tables</Link>
+                            <Link href="/products/chairs" className="text-sm text-neutral-600 hover:text-neutral-900">Chairs</Link>
+                            <Link href="/products" className="text-sm text-neutral-900 font-medium">All Products</Link>
+                            <Link href="/about" className="text-sm text-neutral-600 hover:text-neutral-900">About Us</Link>
+                        </nav>
+                        <div className="flex items-center gap-4">
+                            <button className="p-2 hover:bg-neutral-100 rounded-full">
+                                <Heart className="w-5 h-5" />
+                            </button>
+                            <Link href="/checkout" className="p-2 hover:bg-neutral-100 rounded-full">
+                                <ShoppingCart className="w-5 h-5" />
                             </Link>
                         </div>
                     </div>
                 </div>
-
-                {/* Navigation Categories */}
-                <nav className="hidden border-b border-neutral-200 md:block">
-                    <div className="container mx-auto">
-                        <ul className="flex justify-center gap-8 py-4 text-sm font-semibold tracking-wide text-neutral-800">
-                            {[
-                                { name: "Sofas", href: "/products/sofas" },
-                                { name: "Beds", href: "/products/beds" },
-                                { name: "Tables", href: "/products/tables" },
-                                { name: "Chairs", href: "/products/chairs" },
-                                { name: "All Products", href: "/products" },
-                                { name: "About Us", href: "/about" },
-                            ].map((item) => (
-                                <li key={item.name}>
-                                    <Link href={item.href} className="cursor-pointer hover:underline underline-offset-4 decoration-neutral-400">
-                                        {item.name === "All Products" ? <span className="text-red-700 underline underline-offset-4">All Products</span> : item.name}
-                                    </Link>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-                </nav>
             </header>
 
-            <main className="pb-20">
+            <main className="pt-20 pb-20">
                 {/* Breadcrumb */}
                 <div className="container mx-auto px-4 py-4">
                     <div className="flex items-center gap-2 text-sm text-neutral-500">
@@ -176,7 +71,7 @@ export default function ProductsPage() {
                 <div className="container mx-auto px-4 py-8">
                     <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">All Products</h1>
                     <p className="text-neutral-600 max-w-2xl">
-                        Explore our complete collection of premium stainless steel furniture. From elegant sofas to modern beds, tables, and chairs - find the perfect pieces for your space.
+                        Browse our complete collection of premium stainless steel furniture. From sofas to beds, tables to chairs, find the perfect pieces for your home.
                     </p>
                 </div>
 
@@ -185,49 +80,32 @@ export default function ProductsPage() {
                     <h2 className="text-xl font-semibold mb-6">Shop by Category</h2>
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                         {categories.map((cat) => (
-                            <Link
-                                href={`/products/${cat.slug}`}
+                            <button
                                 key={cat.slug}
-                                className="group relative overflow-hidden aspect-square"
+                                onClick={() => setSelectedCategory(selectedCategory === cat.name as ProductCategory ? null : cat.name as ProductCategory)}
+                                className={`group relative aspect-[4/3] overflow-hidden rounded-lg ${
+                                    selectedCategory === cat.name ? "ring-2 ring-neutral-900" : ""
+                                }`}
                             >
-                                <img
+                                <Image
                                     src={cat.image}
                                     alt={cat.name}
-                                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                                    fill
+                                    className="object-cover transition-transform duration-700 group-hover:scale-105"
                                 />
-                                <div className="absolute inset-0 bg-black/30 group-hover:bg-black/40 transition-colors" />
-                                <div className="absolute inset-0 flex flex-col items-center justify-center text-white">
-                                    <h3 className="text-xl font-bold">{cat.name}</h3>
-                                    <p className="text-sm opacity-80">{cat.count} Products</p>
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                                <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
+                                    <h3 className="font-semibold text-lg">{cat.name}</h3>
+                                    <p className="text-sm text-white/80">
+                                        {allProducts.filter(p => p.category === cat.name).length} products
+                                    </p>
                                 </div>
-                            </Link>
+                            </button>
                         ))}
                     </div>
                 </div>
 
-                {/* Range Sections */}
-                <div className="container mx-auto px-4 mb-12">
-                    <h2 className="text-xl font-semibold mb-6">Shop by Range</h2>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <Link href="/products?range=economic" className="group p-8 bg-green-50 border border-green-200 hover:border-green-400 transition-colors">
-                            <h3 className="text-2xl font-bold text-green-800 mb-2">Economic Range</h3>
-                            <p className="text-green-700 text-sm mb-4">Quality furniture at affordable prices. Perfect for budget-conscious buyers.</p>
-                            <span className="text-green-600 font-semibold text-sm group-hover:underline">Browse Economic →</span>
-                        </Link>
-                        <Link href="/products?range=exclusive" className="group p-8 bg-purple-50 border border-purple-200 hover:border-purple-400 transition-colors">
-                            <h3 className="text-2xl font-bold text-purple-800 mb-2">Exclusive Range</h3>
-                            <p className="text-purple-700 text-sm mb-4">Premium designs with superior craftsmanship. For those who appreciate the finer things.</p>
-                            <span className="text-purple-600 font-semibold text-sm group-hover:underline">Browse Exclusive →</span>
-                        </Link>
-                        <Link href="/products?range=custom" className="group p-8 bg-amber-50 border border-amber-200 hover:border-amber-400 transition-colors">
-                            <h3 className="text-2xl font-bold text-amber-800 mb-2">Custom Range</h3>
-                            <p className="text-amber-700 text-sm mb-4">Bespoke furniture tailored to your specifications. Create your unique piece.</p>
-                            <span className="text-amber-600 font-semibold text-sm group-hover:underline">Browse Custom →</span>
-                        </Link>
-                    </div>
-                </div>
-
-                {/* Filters Bar */}
+                {/* Range Filters */}
                 <div className="container mx-auto px-4 mb-8">
                     <div className="flex flex-wrap items-center justify-between gap-4 py-4 border-y border-neutral-200">
                         <div className="flex items-center gap-4">
@@ -236,19 +114,53 @@ export default function ProductsPage() {
                                 Filter
                             </Button>
                             <div className="hidden md:flex gap-2">
-                                <Button variant="ghost" className="h-9 px-4 rounded-full text-sm bg-green-50 text-green-700 hover:bg-green-100">
-                                    Economic
+                                <Button 
+                                    variant="ghost" 
+                                    onClick={() => setSelectedRange(selectedRange === "Economic" ? null : "Economic")}
+                                    className={`h-9 px-4 rounded-full text-sm ${
+                                        selectedRange === "Economic"
+                                            ? "bg-green-200 text-green-800 hover:bg-green-300"
+                                            : "bg-green-50 text-green-700 hover:bg-green-100"
+                                    }`}
+                                >
+                                    Economic Range
                                 </Button>
-                                <Button variant="ghost" className="h-9 px-4 rounded-full text-sm bg-purple-50 text-purple-700 hover:bg-purple-100">
-                                    Exclusive
+                                <Button 
+                                    variant="ghost" 
+                                    onClick={() => setSelectedRange(selectedRange === "Exclusive" ? null : "Exclusive")}
+                                    className={`h-9 px-4 rounded-full text-sm ${
+                                        selectedRange === "Exclusive"
+                                            ? "bg-purple-200 text-purple-800 hover:bg-purple-300"
+                                            : "bg-purple-50 text-purple-700 hover:bg-purple-100"
+                                    }`}
+                                >
+                                    Exclusive Range
                                 </Button>
-                                <Button variant="ghost" className="h-9 px-4 rounded-full text-sm bg-amber-50 text-amber-700 hover:bg-amber-100">
-                                    Custom
+                                <Button 
+                                    variant="ghost" 
+                                    onClick={() => setSelectedRange(selectedRange === "Custom" ? null : "Custom")}
+                                    className={`h-9 px-4 rounded-full text-sm ${
+                                        selectedRange === "Custom"
+                                            ? "bg-amber-200 text-amber-800 hover:bg-amber-300"
+                                            : "bg-amber-50 text-amber-700 hover:bg-amber-100"
+                                    }`}
+                                >
+                                    Custom Range
                                 </Button>
                             </div>
+                            {hasActiveFilters && (
+                                <Button 
+                                    variant="ghost" 
+                                    onClick={clearFilters}
+                                    className="h-9 px-3 text-sm text-neutral-500 hover:text-neutral-900"
+                                >
+                                    <X className="h-4 w-4 mr-1" />
+                                    Clear Filters
+                                </Button>
+                            )}
                         </div>
                         <div className="flex items-center gap-4">
-                            <span className="text-sm text-neutral-500">{products.length} Products</span>
+                            <span className="text-sm text-neutral-500">{filteredProducts.length} Products</span>
                             <div className="flex gap-1">
                                 <Button variant="ghost" size="icon" className="h-9 w-9">
                                     <Grid3X3 className="h-4 w-4" />
@@ -261,56 +173,116 @@ export default function ProductsPage() {
                     </div>
                 </div>
 
+                {/* Active Filters Display */}
+                {hasActiveFilters && (
+                    <div className="container mx-auto px-4 mb-6">
+                        <div className="flex flex-wrap items-center gap-2">
+                            <span className="text-sm text-neutral-500">Active filters:</span>
+                            {selectedCategory && (
+                                <span className="inline-flex items-center gap-1 px-3 py-1 bg-neutral-100 rounded-full text-sm">
+                                    {selectedCategory}
+                                    <button onClick={() => setSelectedCategory(null)}>
+                                        <X className="h-3 w-3" />
+                                    </button>
+                                </span>
+                            )}
+                            {selectedRange && (
+                                <span className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-sm ${
+                                    selectedRange === "Economic" ? "bg-green-100 text-green-700" :
+                                    selectedRange === "Exclusive" ? "bg-purple-100 text-purple-700" :
+                                    "bg-amber-100 text-amber-700"
+                                }`}>
+                                    {selectedRange}
+                                    <button onClick={() => setSelectedRange(null)}>
+                                        <X className="h-3 w-3" />
+                                    </button>
+                                </span>
+                            )}
+                        </div>
+                    </div>
+                )}
+
                 {/* Products Grid */}
                 <div className="container mx-auto px-4">
-                    <h2 className="text-xl font-semibold mb-6">Featured Products</h2>
-                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                        {products.map((product) => (
-                            <Link href={`/products/${product.id}`} key={product.id} className="group cursor-pointer">
-                                <div className="overflow-hidden bg-neutral-100 aspect-[4/5] relative mb-4">
-                                    <img
-                                        src={product.image}
-                                        alt={product.name}
-                                        className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                                    />
-                                    <button className="absolute top-3 right-3 h-8 w-8 rounded-full bg-white/90 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                                        <Heart className="h-4 w-4" />
-                                    </button>
-                                    <span className={`absolute top-3 left-3 px-2 py-1 text-xs font-medium rounded ${product.range === "Economic" ? "bg-green-100 text-green-700" :
+                    {filteredProducts.length > 0 ? (
+                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                            {filteredProducts.map((product) => (
+                                <Link href={`/products/${product.id}`} key={product.id} className="group cursor-pointer">
+                                    <div className="overflow-hidden bg-neutral-100 aspect-[4/5] relative mb-4 rounded-lg">
+                                        <Image
+                                            src={product.images[0]}
+                                            alt={product.name}
+                                            fill
+                                            className="object-cover transition-transform duration-700 group-hover:scale-105"
+                                        />
+                                        <button className="absolute top-3 right-3 h-8 w-8 rounded-full bg-white/90 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                                            <Heart className="h-4 w-4" />
+                                        </button>
+                                        <span className={`absolute top-3 left-3 px-2 py-1 text-xs font-medium rounded ${
+                                            product.range === "Economic" ? "bg-green-100 text-green-700" :
                                             product.range === "Exclusive" ? "bg-purple-100 text-purple-700" :
-                                                "bg-amber-100 text-amber-700"
+                                            "bg-amber-100 text-amber-700"
                                         }`}>
-                                        {product.range}
-                                    </span>
-                                </div>
-                                <div>
-                                    <span className="text-xs text-neutral-500 uppercase tracking-wider">{product.category}</span>
-                                    <h3 className="font-semibold text-sm mt-1 group-hover:underline">{product.name}</h3>
-                                    <p className="text-sm text-neutral-600 mt-1">{product.price}</p>
-                                </div>
-                            </Link>
-                        ))}
-                    </div>
-                </div>
-
-                {/* Load More */}
-                <div className="container mx-auto px-4 mt-12 text-center">
-                    <Button variant="outline" className="h-12 px-12 rounded-none border-neutral-900">
-                        Load More Products
-                    </Button>
+                                            {product.range}
+                                        </span>
+                                    </div>
+                                    <div>
+                                        <span className="text-xs text-neutral-500 uppercase tracking-wider">{product.category}</span>
+                                        <h3 className="font-semibold text-sm mt-1 group-hover:underline">{product.name}</h3>
+                                        <p className="text-sm text-neutral-600 mt-1">{product.priceDisplay}</p>
+                                    </div>
+                                </Link>
+                            ))}
+                        </div>
+                    ) : (
+                        <div className="text-center py-16">
+                            <p className="text-neutral-500 mb-4">No products found matching your filters.</p>
+                            <Button variant="outline" onClick={clearFilters}>
+                                Clear all filters
+                            </Button>
+                        </div>
+                    )}
                 </div>
             </main>
 
             {/* Footer */}
-            <footer className="bg-white pt-20 pb-10 border-t border-neutral-200 text-neutral-900 text-sm">
+            <footer className="bg-neutral-900 text-white py-12">
                 <div className="container mx-auto px-4">
-                    <div className="flex flex-col md:flex-row justify-between items-center text-xs text-neutral-500 gap-4">
-                        <div className="flex flex-wrap gap-4 justify-center md:justify-start">
-                            <span className="underline cursor-pointer">Terms of Use</span>
-                            <span className="underline cursor-pointer">Privacy</span>
-                            <span className="underline cursor-pointer">Site Index</span>
+                    <div className="grid md:grid-cols-4 gap-8">
+                        <div>
+                            <h3 className="text-lg font-bold mb-4">Stallion Stainless</h3>
+                            <p className="text-neutral-400 text-sm">
+                                Premium stainless steel furniture for modern living spaces.
+                            </p>
                         </div>
-                        <p>&copy; {new Date().getFullYear()} Stallion Stainless. All rights reserved.</p>
+                        <div>
+                            <h4 className="font-semibold mb-4">Categories</h4>
+                            <ul className="space-y-2 text-sm text-neutral-400">
+                                <li><Link href="/products/sofas" className="hover:text-white">Sofas</Link></li>
+                                <li><Link href="/products/beds" className="hover:text-white">Beds</Link></li>
+                                <li><Link href="/products/tables" className="hover:text-white">Tables</Link></li>
+                                <li><Link href="/products/chairs" className="hover:text-white">Chairs</Link></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 className="font-semibold mb-4">Customer Service</h4>
+                            <ul className="space-y-2 text-sm text-neutral-400">
+                                <li><Link href="/about" className="hover:text-white">About Us</Link></li>
+                                <li><Link href="#" className="hover:text-white">Contact</Link></li>
+                                <li><Link href="#" className="hover:text-white">Shipping</Link></li>
+                                <li><Link href="#" className="hover:text-white">Returns</Link></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 className="font-semibold mb-4">Contact</h4>
+                            <ul className="space-y-2 text-sm text-neutral-400">
+                                <li>contact@stallionstainless.com</li>
+                                <li>+91 98765 43210</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div className="border-t border-neutral-800 mt-8 pt-8 text-center text-sm text-neutral-400">
+                        © 2024 Stallion Stainless. All rights reserved.
                     </div>
                 </div>
             </footer>

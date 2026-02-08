@@ -1,139 +1,159 @@
+"use client";
+
+import { useParams } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Search, User, ShoppingCart, MapPin, Heart, ChevronRight, Menu, Minus, Plus, Truck, Shield, RotateCcw } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
-
-const product = {
-    id: 1,
-    name: "Modern Stainless Steel Gate",
-    price: "₹45,000",
-    description: "Crafted with precision from premium 304-grade stainless steel, this modern gate combines elegance with durability. Perfect for residential entrances, it features a sleek design that complements contemporary architecture while providing robust security.",
-    images: [
-        "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?q=80&w=2000&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1578662996442-48f60103fc96?q=80&w=2000&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1558618047-f4b511ce5c0b?q=80&w=2000&auto=format&fit=crop",
-    ],
-    category: "Gates",
-    features: [
-        "304-grade stainless steel construction",
-        "Weather-resistant finish",
-        "Custom sizing available",
-        "10-year warranty",
-        "Professional installation included",
-    ],
-};
+import {
+    ShoppingCart,
+    Heart,
+    ArrowLeft,
+    Truck,
+    Shield,
+    Package,
+    Star,
+    Check,
+} from "lucide-react";
+import { useState } from "react";
+import { getProductById } from "@/lib/products";
 
 export default function ProductDetailPage() {
-    return (
-        <div className="min-h-screen bg-white font-sans text-neutral-900">
-            {/* Top Banner */}
-            <div className="hidden border-b border-neutral-200 bg-neutral-100 px-4 py-1 text-xs font-medium sm:block">
-                <div className="container mx-auto flex justify-between">
-                    <div className="flex gap-4">
-                        <span>Stallion Stainless</span>
-                        <span>Stallion Comfort System</span>
-                        <span>Since 1985</span>
+    const params = useParams();
+    const productId = Number(params.id);
+    const product = getProductById(productId);
+
+    const [selectedImage, setSelectedImage] = useState(0);
+    const [quantity, setQuantity] = useState(1);
+
+    if (!product) {
+        return (
+            <div className="min-h-screen bg-white">
+                {/* Header */}
+                <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b">
+                    <div className="container mx-auto px-4 py-4">
+                        <div className="flex items-center justify-between">
+                            <Link href="/" className="text-2xl font-bold text-neutral-900">
+                                Stallion Stainless
+                            </Link>
+                            <nav className="hidden md:flex items-center gap-8">
+                                <Link href="/products/sofas" className="text-sm text-neutral-600 hover:text-neutral-900">Sofas</Link>
+                                <Link href="/products/beds" className="text-sm text-neutral-600 hover:text-neutral-900">Beds</Link>
+                                <Link href="/products/tables" className="text-sm text-neutral-600 hover:text-neutral-900">Tables</Link>
+                                <Link href="/products/chairs" className="text-sm text-neutral-600 hover:text-neutral-900">Chairs</Link>
+                                <Link href="/products" className="text-sm text-neutral-600 hover:text-neutral-900">All Products</Link>
+                            </nav>
+                            <div className="flex items-center gap-4">
+                                <button className="p-2 hover:bg-neutral-100 rounded-full">
+                                    <Heart className="w-5 h-5" />
+                                </button>
+                                <Link href="/checkout" className="p-2 hover:bg-neutral-100 rounded-full">
+                                    <ShoppingCart className="w-5 h-5" />
+                                </Link>
+                            </div>
+                        </div>
                     </div>
-                    <div className="flex gap-4">
-                        <span className="flex items-center gap-1">Global Shipping <ChevronRight className="h-3 w-3" /></span>
+                </header>
+
+                <main className="pt-24 pb-20">
+                    <div className="container mx-auto px-4">
+                        <div className="text-center py-20">
+                            <h1 className="text-3xl font-bold text-neutral-900 mb-4">Product Not Found</h1>
+                            <p className="text-neutral-600 mb-8">The product you&apos;re looking for doesn&apos;t exist or has been removed.</p>
+                            <Link href="/products">
+                                <Button className="bg-neutral-900 text-white hover:bg-neutral-800">
+                                    <ArrowLeft className="w-4 h-4 mr-2" />
+                                    Back to Products
+                                </Button>
+                            </Link>
+                        </div>
                     </div>
-                </div>
+                </main>
             </div>
+        );
+    }
 
-            {/* Main Header */}
-            <header className="sticky top-0 z-50 w-full bg-white">
-                <div className="container mx-auto px-4 py-4 md:py-6">
-                    <div className="flex items-center justify-between gap-4">
-                        {/* Search Bar */}
-                        <div className="hidden md:block w-1/4">
-                            <div className="relative">
-                                <Input
-                                    type="text"
-                                    placeholder="What can we help you find?"
-                                    className="h-11 rounded-none border-neutral-300 bg-white pl-4 pr-10 text-sm placeholder:text-neutral-500 focus-visible:ring-1 focus-visible:ring-neutral-900"
-                                />
-                                <Search className="absolute right-3 top-1/2 h-5 w-5 -translate-y-1/2 text-neutral-500" />
-                            </div>
-                        </div>
-
-                        {/* Mobile Menu Icon */}
-                        <div className="md:hidden">
-                            <Menu className="h-6 w-6" />
-                        </div>
-
-                        {/* Logo */}
-                        <div className="flex-1 text-center md:flex-none">
-                            <Link href="/" className="text-2xl font-bold tracking-tight md:text-3xl font-serif">
-                                STALLION<span className="font-light">STAINLESS</span>
-                            </Link>
-                        </div>
-
-                        {/* Icons */}
-                        <div className="flex w-auto md:w-1/4 justify-end items-center gap-4 sm:gap-6">
-                            <div className="hidden flex-col items-center gap-1 sm:flex cursor-pointer hover:text-neutral-600">
-                                <div className="flex items-center gap-1 text-xs font-semibold">
-                                    Orders & Sign In <User className="h-5 w-5" />
-                                </div>
-                            </div>
-                            <MapPin className="h-6 w-6 cursor-pointer hover:text-neutral-600 hidden sm:block" />
-                            <Heart className="h-6 w-6 cursor-pointer hover:text-neutral-600 hidden sm:block" />
-                            <Link href="/checkout" className="relative cursor-pointer hover:text-neutral-600">
-                                <ShoppingCart className="h-6 w-6" />
-                                <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-neutral-900 text-[10px] text-white">0</span>
+    return (
+        <div className="min-h-screen bg-white">
+            {/* Header */}
+            <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b">
+                <div className="container mx-auto px-4 py-4">
+                    <div className="flex items-center justify-between">
+                        <Link href="/" className="text-2xl font-bold text-neutral-900">
+                            Stallion Stainless
+                        </Link>
+                        <nav className="hidden md:flex items-center gap-8">
+                            <Link href="/products/sofas" className="text-sm text-neutral-600 hover:text-neutral-900">Sofas</Link>
+                            <Link href="/products/beds" className="text-sm text-neutral-600 hover:text-neutral-900">Beds</Link>
+                            <Link href="/products/tables" className="text-sm text-neutral-600 hover:text-neutral-900">Tables</Link>
+                            <Link href="/products/chairs" className="text-sm text-neutral-600 hover:text-neutral-900">Chairs</Link>
+                            <Link href="/products" className="text-sm text-neutral-600 hover:text-neutral-900">All Products</Link>
+                        </nav>
+                        <div className="flex items-center gap-4">
+                            <button className="p-2 hover:bg-neutral-100 rounded-full">
+                                <Heart className="w-5 h-5" />
+                            </button>
+                            <Link href="/checkout" className="p-2 hover:bg-neutral-100 rounded-full">
+                                <ShoppingCart className="w-5 h-5" />
                             </Link>
                         </div>
                     </div>
                 </div>
-
-                {/* Navigation Categories */}
-                <nav className="hidden border-b border-neutral-200 md:block">
-                    <div className="container mx-auto">
-                        <ul className="flex justify-center gap-8 py-4 text-sm font-semibold tracking-wide text-neutral-800">
-                            {["Furniture", "Benches", "Railings", "Claddings", "Gates", "Canopies", "Fabrication", "About Us"].map((item) => (
-                                <li key={item} className="cursor-pointer hover:underline underline-offset-4 decoration-neutral-400">
-                                    {item === "Furniture" ? <span className="text-red-700">Sale</span> : item}
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-                </nav>
             </header>
 
-            <main className="pb-20">
-                {/* Breadcrumb */}
-                <div className="container mx-auto px-4 py-4">
-                    <div className="flex items-center gap-2 text-sm text-neutral-500">
-                        <Link href="/" className="hover:text-neutral-900">Home</Link>
-                        <ChevronRight className="h-4 w-4" />
-                        <Link href="/products" className="hover:text-neutral-900">Products</Link>
-                        <ChevronRight className="h-4 w-4" />
-                        <span className="text-neutral-900">{product.name}</span>
+            <main className="pt-24 pb-20">
+                <div className="container mx-auto px-4">
+                    {/* Breadcrumb */}
+                    <div className="mb-8">
+                        <nav className="flex items-center gap-2 text-sm text-neutral-500">
+                            <Link href="/" className="hover:text-neutral-900">Home</Link>
+                            <span>/</span>
+                            <Link href="/products" className="hover:text-neutral-900">Products</Link>
+                            <span>/</span>
+                            <Link href={`/products/${product.category.toLowerCase()}`} className="hover:text-neutral-900">{product.category}</Link>
+                            <span>/</span>
+                            <span className="text-neutral-900">{product.name}</span>
+                        </nav>
                     </div>
-                </div>
 
-                {/* Product Detail */}
-                <div className="container mx-auto px-4 py-8">
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-                        {/* Product Images */}
+                    <div className="grid lg:grid-cols-2 gap-12">
+                        {/* Image Gallery */}
                         <div className="space-y-4">
-                            <div className="aspect-square bg-neutral-100 overflow-hidden">
-                                <img
-                                    src={product.images[0]}
+                            <div className="relative aspect-square bg-neutral-100 rounded-lg overflow-hidden">
+                                <Image
+                                    src={product.images[selectedImage]}
                                     alt={product.name}
-                                    className="h-full w-full object-cover"
+                                    fill
+                                    className="object-cover"
+                                    priority
                                 />
+                                {/* Range Badge */}
+                                <div className="absolute top-4 left-4">
+                                    <span className={`px-3 py-1 text-sm font-medium rounded-full ${product.range === "Economic"
+                                            ? "bg-green-100 text-green-700"
+                                            : product.range === "Exclusive"
+                                                ? "bg-purple-100 text-purple-700"
+                                                : "bg-amber-100 text-amber-700"
+                                        }`}>
+                                        {product.range}
+                                    </span>
+                                </div>
                             </div>
-                            <div className="grid grid-cols-3 gap-4">
-                                {product.images.map((img, idx) => (
-                                    <div key={idx} className="aspect-square bg-neutral-100 overflow-hidden cursor-pointer border-2 border-transparent hover:border-neutral-900">
-                                        <img
-                                            src={img}
-                                            alt={`${product.name} ${idx + 1}`}
-                                            className="h-full w-full object-cover"
+                            <div className="grid grid-cols-4 gap-4">
+                                {product.images.map((image, index) => (
+                                    <button
+                                        key={index}
+                                        onClick={() => setSelectedImage(index)}
+                                        className={`relative aspect-square bg-neutral-100 rounded-lg overflow-hidden ${selectedImage === index ? "ring-2 ring-neutral-900" : ""
+                                            }`}
+                                    >
+                                        <Image
+                                            src={image}
+                                            alt={`${product.name} view ${index + 1}`}
+                                            fill
+                                            className="object-cover"
                                         />
-                                    </div>
+                                    </button>
                                 ))}
                             </div>
                         </div>
@@ -141,51 +161,39 @@ export default function ProductDetailPage() {
                         {/* Product Info */}
                         <div className="space-y-6">
                             <div>
-                                <span className="text-sm text-neutral-500 uppercase tracking-wider">{product.category}</span>
-                                <h1 className="text-3xl md:text-4xl font-bold tracking-tight mt-2">{product.name}</h1>
-                            </div>
-
-                            <p className="text-2xl font-semibold">{product.price}</p>
-
-                            <p className="text-neutral-600 leading-relaxed">{product.description}</p>
-
-                            <Separator />
-
-                            {/* Quantity Selector */}
-                            <div className="space-y-3">
-                                <label className="text-sm font-semibold">Quantity</label>
-                                <div className="flex items-center gap-4">
-                                    <div className="flex items-center border border-neutral-300">
-                                        <button className="h-12 w-12 flex items-center justify-center hover:bg-neutral-100">
-                                            <Minus className="h-4 w-4" />
-                                        </button>
-                                        <span className="h-12 w-16 flex items-center justify-center border-x border-neutral-300 font-semibold">1</span>
-                                        <button className="h-12 w-12 flex items-center justify-center hover:bg-neutral-100">
-                                            <Plus className="h-4 w-4" />
-                                        </button>
-                                    </div>
+                                <div className="flex items-center gap-2 mb-2">
+                                    <span className="text-sm text-neutral-500">{product.category}</span>
+                                    <span className="text-sm text-neutral-300">•</span>
+                                    <span className="text-sm text-neutral-500">{product.subcategory}</span>
                                 </div>
-                            </div>
-
-                            {/* Add to Cart */}
-                            <div className="flex flex-col sm:flex-row gap-4">
-                                <Button className="flex-1 h-14 rounded-none bg-neutral-900 text-white hover:bg-neutral-800 text-base font-semibold">
-                                    Add to Cart
-                                </Button>
-                                <Button variant="outline" className="h-14 w-14 rounded-none border-neutral-300">
-                                    <Heart className="h-5 w-5" />
-                                </Button>
+                                <h1 className="text-3xl font-bold text-neutral-900 mb-4">
+                                    {product.name}
+                                </h1>
+                                <div className="flex items-center gap-2 mb-4">
+                                    <div className="flex items-center gap-1">
+                                        {[...Array(5)].map((_, i) => (
+                                            <Star key={i} className="w-4 h-4 fill-amber-400 text-amber-400" />
+                                        ))}
+                                    </div>
+                                    <span className="text-sm text-neutral-500">(24 reviews)</span>
+                                </div>
+                                <p className="text-3xl font-bold text-neutral-900">{product.priceDisplay}</p>
+                                <p className="text-sm text-neutral-500 mt-1">Inclusive of all taxes</p>
                             </div>
 
                             <Separator />
 
-                            {/* Features */}
-                            <div className="space-y-4">
-                                <h3 className="font-semibold">Key Features</h3>
+                            <div>
+                                <h3 className="font-semibold text-neutral-900 mb-3">Description</h3>
+                                <p className="text-neutral-600 leading-relaxed">{product.description}</p>
+                            </div>
+
+                            <div>
+                                <h3 className="font-semibold text-neutral-900 mb-3">Features</h3>
                                 <ul className="space-y-2">
-                                    {product.features.map((feature, idx) => (
-                                        <li key={idx} className="flex items-start gap-3 text-sm text-neutral-600">
-                                            <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-neutral-900"></span>
+                                    {product.features.map((feature, index) => (
+                                        <li key={index} className="flex items-center gap-2 text-neutral-600">
+                                            <Check className="w-4 h-4 text-green-600" />
                                             {feature}
                                         </li>
                                     ))}
@@ -194,19 +202,66 @@ export default function ProductDetailPage() {
 
                             <Separator />
 
+                            {/* Quantity Selector */}
+                            <div>
+                                <h3 className="font-semibold text-neutral-900 mb-3">Quantity</h3>
+                                <div className="flex items-center gap-4">
+                                    <div className="flex items-center border rounded-lg">
+                                        <button
+                                            onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                                            className="px-4 py-2 text-neutral-600 hover:text-neutral-900"
+                                        >
+                                            -
+                                        </button>
+                                        <span className="px-4 py-2 border-x">{quantity}</span>
+                                        <button
+                                            onClick={() => setQuantity(quantity + 1)}
+                                            className="px-4 py-2 text-neutral-600 hover:text-neutral-900"
+                                        >
+                                            +
+                                        </button>
+                                    </div>
+                                    {product.inStock ? (
+                                        <span className="text-sm text-green-600 font-medium">In Stock</span>
+                                    ) : (
+                                        <span className="text-sm text-red-600 font-medium">Out of Stock</span>
+                                    )}
+                                </div>
+                            </div>
+
+                            {/* Action Buttons */}
+                            <div className="flex gap-4">
+                                <Button className="flex-1 bg-neutral-900 text-white hover:bg-neutral-800 h-12">
+                                    <ShoppingCart className="w-5 h-5 mr-2" />
+                                    Add to Cart
+                                </Button>
+                                <Button variant="outline" className="h-12 px-4">
+                                    <Heart className="w-5 h-5" />
+                                </Button>
+                            </div>
+
                             {/* Shipping Info */}
-                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                            <div className="bg-neutral-50 rounded-lg p-4 space-y-3">
                                 <div className="flex items-center gap-3">
-                                    <Truck className="h-5 w-5 text-neutral-600" />
-                                    <span className="text-sm">Free Shipping</span>
+                                    <Truck className="w-5 h-5 text-neutral-600" />
+                                    <div>
+                                        <p className="font-medium text-neutral-900">Free Delivery</p>
+                                        <p className="text-sm text-neutral-500">Delivery within 7-10 business days</p>
+                                    </div>
                                 </div>
                                 <div className="flex items-center gap-3">
-                                    <Shield className="h-5 w-5 text-neutral-600" />
-                                    <span className="text-sm">10-Year Warranty</span>
+                                    <Shield className="w-5 h-5 text-neutral-600" />
+                                    <div>
+                                        <p className="font-medium text-neutral-900">Warranty Included</p>
+                                        <p className="text-sm text-neutral-500">Comprehensive warranty coverage</p>
+                                    </div>
                                 </div>
                                 <div className="flex items-center gap-3">
-                                    <RotateCcw className="h-5 w-5 text-neutral-600" />
-                                    <span className="text-sm">Easy Returns</span>
+                                    <Package className="w-5 h-5 text-neutral-600" />
+                                    <div>
+                                        <p className="font-medium text-neutral-900">Professional Installation</p>
+                                        <p className="text-sm text-neutral-500">Free assembly service included</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -215,15 +270,43 @@ export default function ProductDetailPage() {
             </main>
 
             {/* Footer */}
-            <footer className="bg-white pt-20 pb-10 border-t border-neutral-200 text-neutral-900 text-sm">
+            <footer className="bg-neutral-900 text-white py-12">
                 <div className="container mx-auto px-4">
-                    <div className="flex flex-col md:flex-row justify-between items-center text-xs text-neutral-500 gap-4">
-                        <div className="flex flex-wrap gap-4 justify-center md:justify-start">
-                            <span className="underline cursor-pointer">Terms of Use</span>
-                            <span className="underline cursor-pointer">Privacy</span>
-                            <span className="underline cursor-pointer">Site Index</span>
+                    <div className="grid md:grid-cols-4 gap-8">
+                        <div>
+                            <h3 className="text-lg font-bold mb-4">Stallion Stainless</h3>
+                            <p className="text-neutral-400 text-sm">
+                                Premium stainless steel furniture for modern living spaces.
+                            </p>
                         </div>
-                        <p>&copy; {new Date().getFullYear()} Stallion Stainless. All rights reserved.</p>
+                        <div>
+                            <h4 className="font-semibold mb-4">Categories</h4>
+                            <ul className="space-y-2 text-sm text-neutral-400">
+                                <li><Link href="/products/sofas" className="hover:text-white">Sofas</Link></li>
+                                <li><Link href="/products/beds" className="hover:text-white">Beds</Link></li>
+                                <li><Link href="/products/tables" className="hover:text-white">Tables</Link></li>
+                                <li><Link href="/products/chairs" className="hover:text-white">Chairs</Link></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 className="font-semibold mb-4">Customer Service</h4>
+                            <ul className="space-y-2 text-sm text-neutral-400">
+                                <li><Link href="/about" className="hover:text-white">About Us</Link></li>
+                                <li><Link href="#" className="hover:text-white">Contact</Link></li>
+                                <li><Link href="#" className="hover:text-white">Shipping</Link></li>
+                                <li><Link href="#" className="hover:text-white">Returns</Link></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 className="font-semibold mb-4">Contact</h4>
+                            <ul className="space-y-2 text-sm text-neutral-400">
+                                <li>contact@stallionstainless.com</li>
+                                <li>+91 98765 43210</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div className="border-t border-neutral-800 mt-8 pt-8 text-center text-sm text-neutral-400">
+                        © 2024 Stallion Stainless. All rights reserved.
                     </div>
                 </div>
             </footer>
