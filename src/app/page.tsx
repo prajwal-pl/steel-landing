@@ -228,7 +228,7 @@ export default function Home() {
               <div className="order-2 lg:order-1 relative">
                 <div className="aspect-[4/5] md:aspect-square bg-white shadow-xl overflow-hidden rounded-sm">
                   <img
-                    src="https://images.unsplash.com/photo-1595514020148-18e4fe62ee72?q=80&w=2070&auto=format&fit=crop"
+                    src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?q=80&w=2000&auto=format&fit=crop"
                     alt="Luxury Stainless Steel Gate"
                     className="h-full w-full object-cover"
                   />
@@ -239,12 +239,16 @@ export default function Home() {
                   the new statement<br />gate
                 </h2>
                 <div className="flex flex-col gap-4">
-                  <Button variant="outline" className="w-full sm:w-64 h-12 rounded-full border-2 border-neutral-900 bg-transparent text-neutral-900 hover:bg-neutral-900 hover:text-white font-semibold">
-                    Shop All Gates
-                  </Button>
-                  <Button variant="outline" className="w-full sm:w-64 h-12 rounded-full border-2 border-neutral-900 bg-transparent text-neutral-900 hover:bg-neutral-900 hover:text-white font-semibold">
-                    Shop In-Stock Gates
-                  </Button>
+                  <Link href="/products">
+                    <Button variant="outline" className="w-full sm:w-64 h-12 rounded-full border-2 border-neutral-900 bg-transparent text-neutral-900 hover:bg-neutral-900 hover:text-white font-semibold">
+                      Shop All Gates
+                    </Button>
+                  </Link>
+                  <Link href="/products">
+                    <Button variant="outline" className="w-full sm:w-64 h-12 rounded-full border-2 border-neutral-900 bg-transparent text-neutral-900 hover:bg-neutral-900 hover:text-white font-semibold">
+                      Shop In-Stock Gates
+                    </Button>
+                  </Link>
                 </div>
                 <div className="pt-8">
                   <div className="flex items-start gap-2 max-w-md">
@@ -259,9 +263,9 @@ export default function Home() {
                 </div>
                 <div className="relative h-64 w-48 mt-8 hidden md:block">
                   <img
-                    src="https://plus.unsplash.com/premium_photo-1680194678120-e7631cc11484?q=80&w=2070&auto=format&fit=crop"
+                    src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?q=80&w=2000&auto=format&fit=crop"
                     className="h-full w-full object-cover shadow-sm"
-                    alt="Detail shot"
+                    alt="Detail shot of gate hardware"
                   />
                 </div>
               </div>
