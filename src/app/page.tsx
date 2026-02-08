@@ -60,10 +60,10 @@ export default function Home() {
               </div>
               <MapPin className="h-6 w-6 cursor-pointer hover:text-neutral-600 hidden sm:block" />
               <Heart className="h-6 w-6 cursor-pointer hover:text-neutral-600 hidden sm:block" />
-              <div className="relative cursor-pointer hover:text-neutral-600">
+              <Link href="/checkout" className="relative cursor-pointer hover:text-neutral-600">
                 <ShoppingCart className="h-6 w-6" />
                 <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-neutral-900 text-[10px] text-white">0</span>
-              </div>
+              </Link>
             </div>
           </div>
         </div>
@@ -72,9 +72,18 @@ export default function Home() {
         <nav className="hidden border-b border-neutral-200 md:block">
           <div className="container mx-auto">
             <ul className="flex justify-center gap-8 py-4 text-sm font-semibold tracking-wide text-neutral-800">
-              {["Furniture", "Benches", "Railings", "Claddings", "Gates", "Canopies", "Fabrication", "About Us"].map((item) => (
-                <li key={item} className="cursor-pointer hover:underline underline-offset-4 decoration-neutral-400">
-                  {item === "Furniture" ? <span className="text-red-700">Sale</span> : item}
+              {[
+                { name: "Sofas", href: "/products/sofas", sale: true },
+                { name: "Beds", href: "/products/beds" },
+                { name: "Tables", href: "/products/tables" },
+                { name: "Chairs", href: "/products/chairs" },
+                { name: "All Products", href: "/products" },
+                { name: "About Us", href: "/about" },
+              ].map((item) => (
+                <li key={item.name}>
+                  <Link href={item.href} className="cursor-pointer hover:underline underline-offset-4 decoration-neutral-400">
+                    {item.sale ? <span className="text-red-700">{item.name}</span> : item.name}
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -115,19 +124,23 @@ export default function Home() {
           <div className="relative container mx-auto h-full px-4 flex items-center">
             <div className="max-w-xl space-y-6 text-white pl-4 md:pl-12">
               <h1 className="text-4xl md:text-6xl font-semibold leading-tight drop-shadow-md">
-                our bestselling benches, <br />
+                our bestselling sofas, <br />
                 now with extra comfort
               </h1>
               <p className="text-lg font-medium drop-shadow-md opacity-90">
-                Impeccable finish and sturdy construction for public & private spaces.
+                Impeccable finish and sturdy construction with stainless steel frames.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                <Button className="h-12 rounded-full bg-white px-8 text-base font-semibold text-neutral-900 hover:bg-neutral-100 border-none">
-                  Shop Benches
-                </Button>
-                <Button variant="outline" className="h-12 rounded-full bg-white px-8 text-base font-semibold text-neutral-900 hover:bg-neutral-100 border-none">
-                  View Catalouge
-                </Button>
+                <Link href="/products/sofas">
+                  <Button className="h-12 rounded-full bg-white px-8 text-base font-semibold text-neutral-900 hover:bg-neutral-100 border-none">
+                    Shop Sofas
+                  </Button>
+                </Link>
+                <Link href="/products">
+                  <Button variant="outline" className="h-12 rounded-full bg-white px-8 text-base font-semibold text-neutral-900 hover:bg-neutral-100 border-none">
+                    View Catalogue
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>
@@ -148,51 +161,67 @@ export default function Home() {
               new arrivals: in stock & ready to ship
             </h2>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {/* Card 1 */}
-              <div className="group cursor-pointer">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+              {/* Sofas */}
+              <Link href="/products/sofas" className="group cursor-pointer">
                 <div className="overflow-hidden bg-neutral-100 aspect-[4/5] relative">
                   <img
-                    src="https://images.unsplash.com/photo-1595428774223-ef52624120d2?q=80&w=1974&auto=format&fit=crop"
-                    alt="Stainless Steel Railing"
+                    src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=2000&auto=format&fit=crop"
+                    alt="Premium Sofas"
                     className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
+                  <span className="absolute top-3 left-3 px-2 py-1 text-xs font-medium rounded bg-red-100 text-red-700">Sale</span>
                 </div>
                 <div className="mt-4 text-center">
-                  <h3 className="font-semibold text-lg">Modern SS Railings</h3>
-                  <p className="text-sm text-neutral-600">Starting at 49/ft</p>
+                  <h3 className="font-semibold text-lg">Premium Sofas</h3>
+                  <p className="text-sm text-neutral-600">Starting at ₹18,000</p>
                 </div>
-              </div>
+              </Link>
 
-              {/* Card 2 */}
-              <div className="group cursor-pointer">
+              {/* Beds */}
+              <Link href="/products/beds" className="group cursor-pointer">
                 <div className="overflow-hidden bg-neutral-100 aspect-[4/5] relative">
                   <img
-                    src="https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=2000&auto=format&fit=crop"
-                    alt="Stainless Steel Table"
+                    src="https://images.unsplash.com/photo-1615874959474-d609969a20ed?q=80&w=2000&auto=format&fit=crop"
+                    alt="Luxury Beds"
                     className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
                 </div>
                 <div className="mt-4 text-center">
-                  <h3 className="font-semibold text-lg">Bespoke Coffee Tables</h3>
-                  <p className="text-sm text-neutral-600">Starting at 99</p>
+                  <h3 className="font-semibold text-lg">Luxury Beds</h3>
+                  <p className="text-sm text-neutral-600">Starting at ₹22,000</p>
                 </div>
-              </div>
+              </Link>
 
-              {/* Card 3 */}
-              <div className="group cursor-pointer">
+              {/* Tables */}
+              <Link href="/products/tables" className="group cursor-pointer">
                 <div className="overflow-hidden bg-neutral-100 aspect-[4/5] relative">
                   <img
-                    src="https://images.unsplash.com/photo-1580480055273-228ff5388ef8?q=80&w=1974&auto=format&fit=crop"
-                    alt="Polycarbonate Sheet Roof"
+                    src="https://images.unsplash.com/photo-1617806118233-18e1de247200?q=80&w=2000&auto=format&fit=crop"
+                    alt="Designer Tables"
                     className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
                 </div>
                 <div className="mt-4 text-center">
-                  <h3 className="font-semibold text-lg">Glass & Polycarbonate Canopies</h3>
-                  <p className="text-sm text-neutral-600">Starting at 99</p>
+                  <h3 className="font-semibold text-lg">Designer Tables</h3>
+                  <p className="text-sm text-neutral-600">Starting at ₹15,000</p>
                 </div>
-              </div>
+              </Link>
+
+              {/* Chairs */}
+              <Link href="/products/chairs" className="group cursor-pointer">
+                <div className="overflow-hidden bg-neutral-100 aspect-[4/5] relative">
+                  <img
+                    src="https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?q=80&w=2000&auto=format&fit=crop"
+                    alt="Premium Chairs"
+                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                </div>
+                <div className="mt-4 text-center">
+                  <h3 className="font-semibold text-lg">Premium Chairs</h3>
+                  <p className="text-sm text-neutral-600">Starting at ₹12,000</p>
+                </div>
+              </Link>
             </div>
           </div>
         </section>
@@ -210,12 +239,16 @@ export default function Home() {
                 the new industrial cool
               </h2>
               <div className="flex flex-col gap-4 sm:flex-row">
-                <Button className="h-12 rounded-full bg-white px-10 text-base font-bold text-neutral-900 hover:bg-neutral-100">
-                  Shop the Look
-                </Button>
-                <Button className="h-12 rounded-full bg-white px-10 text-base font-bold text-neutral-900 hover:bg-neutral-100">
-                  Shop 1600+ New Arrivals
-                </Button>
+                <Link href="/products">
+                  <Button className="h-12 rounded-full bg-white px-10 text-base font-bold text-neutral-900 hover:bg-neutral-100">
+                    Shop the Look
+                  </Button>
+                </Link>
+                <Link href="/products">
+                  <Button className="h-12 rounded-full bg-white px-10 text-base font-bold text-neutral-900 hover:bg-neutral-100">
+                    Shop 1600+ New Arrivals
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>
@@ -228,25 +261,25 @@ export default function Home() {
               <div className="order-2 lg:order-1 relative">
                 <div className="aspect-[4/5] md:aspect-square bg-white shadow-xl overflow-hidden rounded-sm">
                   <img
-                    src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?q=80&w=2000&auto=format&fit=crop"
-                    alt="Luxury Stainless Steel Gate"
+                    src="https://images.unsplash.com/photo-1540574163026-643ea20ade25?q=80&w=2000&auto=format&fit=crop"
+                    alt="Luxury L-Shape Sofa"
                     className="h-full w-full object-cover"
                   />
                 </div>
               </div>
               <div className="order-1 lg:order-2 space-y-8 lg:pl-12">
                 <h2 className="text-4xl md:text-6xl font-bold tracking-tight text-neutral-900 leading-tight">
-                  the new statement<br />gate
+                  the new statement<br />sofa
                 </h2>
                 <div className="flex flex-col gap-4">
-                  <Link href="/products">
+                  <Link href="/products/sofas">
                     <Button variant="outline" className="w-full sm:w-64 h-12 rounded-full border-2 border-neutral-900 bg-transparent text-neutral-900 hover:bg-neutral-900 hover:text-white font-semibold">
-                      Shop All Gates
+                      Shop All Sofas
                     </Button>
                   </Link>
-                  <Link href="/products">
+                  <Link href="/products/sofas?type=corner">
                     <Button variant="outline" className="w-full sm:w-64 h-12 rounded-full border-2 border-neutral-900 bg-transparent text-neutral-900 hover:bg-neutral-900 hover:text-white font-semibold">
-                      Shop In-Stock Gates
+                      Shop L-Shape Sofas
                     </Button>
                   </Link>
                 </div>
@@ -254,18 +287,18 @@ export default function Home() {
                   <div className="flex items-start gap-2 max-w-md">
                     <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-neutral-900"></span>
                     <div>
-                      <strong className="block font-medium">New! Automatic Sliding Gates</strong>
+                      <strong className="block font-medium">New! Recliner Collection</strong>
                       <p className="text-neutral-600 mt-1">
-                        All gorgeous, secure curves. Stainless steel certified; ultra-smooth operation.
+                        Ultimate comfort meets elegant design. Stainless steel frames with premium upholstery.
                       </p>
                     </div>
                   </div>
                 </div>
                 <div className="relative h-64 w-48 mt-8 hidden md:block">
                   <img
-                    src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?q=80&w=2000&auto=format&fit=crop"
+                    src="https://images.unsplash.com/photo-1550254478-ead40cc54513?q=80&w=2000&auto=format&fit=crop"
                     className="h-full w-full object-cover shadow-sm"
-                    alt="Detail shot of gate hardware"
+                    alt="Recliner sofa detail"
                   />
                 </div>
               </div>
@@ -273,17 +306,68 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Range Section */}
+        <section className="py-20 bg-white">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-center mb-4">Shop by Range</h2>
+            <p className="text-neutral-600 text-center max-w-2xl mx-auto mb-12">
+              Find furniture that fits your budget and style. Choose from our carefully curated ranges.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <Link href="/products?range=economic" className="group relative overflow-hidden aspect-[4/5]">
+                <img
+                  src="https://images.unsplash.com/photo-1506439773649-6e0eb8cfb237?q=80&w=2000&auto=format&fit=crop"
+                  alt="Economic Range"
+                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-green-900/80 to-transparent" />
+                <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                  <span className="px-3 py-1 bg-green-600 text-xs font-semibold rounded-full mb-3 inline-block">Budget Friendly</span>
+                  <h3 className="text-2xl font-bold mb-2">Economic Range</h3>
+                  <p className="text-sm opacity-90">Quality furniture starting at ₹12,000</p>
+                </div>
+              </Link>
+              <Link href="/products?range=exclusive" className="group relative overflow-hidden aspect-[4/5]">
+                <img
+                  src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=2000&auto=format&fit=crop"
+                  alt="Exclusive Range"
+                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-purple-900/80 to-transparent" />
+                <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                  <span className="px-3 py-1 bg-purple-600 text-xs font-semibold rounded-full mb-3 inline-block">Premium Quality</span>
+                  <h3 className="text-2xl font-bold mb-2">Exclusive Range</h3>
+                  <p className="text-sm opacity-90">Luxury designs from ₹45,000</p>
+                </div>
+              </Link>
+              <Link href="/products?range=custom" className="group relative overflow-hidden aspect-[4/5]">
+                <img
+                  src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=2000&auto=format&fit=crop"
+                  alt="Custom Range"
+                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-amber-900/80 to-transparent" />
+                <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                  <span className="px-3 py-1 bg-amber-600 text-xs font-semibold rounded-full mb-3 inline-block">Made to Order</span>
+                  <h3 className="text-2xl font-bold mb-2">Custom Range</h3>
+                  <p className="text-sm opacity-90">Bespoke furniture tailored for you</p>
+                </div>
+              </Link>
+            </div>
+          </div>
+        </section>
+
         {/* Text/Content Section */}
-        <section className="bg-white py-24 text-center">
+        <section className="bg-neutral-100 py-24 text-center">
           <div className="container mx-auto px-4 max-w-4xl">
             <h2 className="text-3xl font-serif md:text-4xl mb-6">Introducing Stallion Comfort System</h2>
             <div className="h-px w-24 bg-neutral-900 mx-auto mb-8"></div>
             <p className="text-xl leading-relaxed text-neutral-600 mb-8">
               Since 1985, we have been involved in manufacturing and supplying a wide assortment of
-              <span className="text-neutral-900 font-semibold"> Stainless Steel Benches, Railings, Claddings</span>, and more.
+              <span className="text-neutral-900 font-semibold"> Premium Sofas, Beds, Tables, and Chairs</span> with stainless steel frames.
               Under the astute guidance of Mr. Kamalesh Mehta, we deliver products with impeccable finish and sturdy construction.
             </p>
-            <Link href="#about" className="inline-flex items-center border-b border-neutral-900 pb-1 text-sm font-bold uppercase tracking-widest hover:text-neutral-600">
+            <Link href="/about" className="inline-flex items-center border-b border-neutral-900 pb-1 text-sm font-bold uppercase tracking-widest hover:text-neutral-600">
               Read Our Story
             </Link>
           </div>

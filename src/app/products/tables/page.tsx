@@ -3,60 +3,20 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Search, User, ShoppingCart, MapPin, Heart, ChevronRight, Menu, Filter, Grid3X3, LayoutGrid } from "lucide-react";
 
-const categories = [
-    { name: "Sofas", slug: "sofas", image: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=2000&auto=format&fit=crop", count: 24 },
-    { name: "Beds", slug: "beds", image: "https://images.unsplash.com/photo-1615874959474-d609969a20ed?q=80&w=2000&auto=format&fit=crop", count: 18 },
-    { name: "Tables", slug: "tables", image: "https://images.unsplash.com/photo-1617806118233-18e1de247200?q=80&w=2000&auto=format&fit=crop", count: 32 },
-    { name: "Chairs", slug: "chairs", image: "https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?q=80&w=2000&auto=format&fit=crop", count: 28 },
+const subcategories = [
+    { name: "Dining Table", slug: "dining", description: "Family gatherings" },
+    { name: "Corner Table", slug: "corner", description: "Space savers" },
+    { name: "Coffee Table", slug: "coffee", description: "Living room essentials" },
+    { name: "Console Table", slug: "console", description: "Elegant entryways" },
 ];
 
 const products = [
-    {
-        id: 101,
-        name: "Luxury 3-Seater Straight Sofa",
-        price: "₹75,000",
-        image: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=2000&auto=format&fit=crop",
-        category: "Sofas",
-        range: "Exclusive",
-    },
-    {
-        id: 201,
-        name: "Modern SS Frame Single Bed",
-        price: "₹28,000",
-        image: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?q=80&w=2000&auto=format&fit=crop",
-        category: "Beds",
-        range: "Economic",
-    },
     {
         id: 301,
         name: "6-Seater SS Dining Table",
         price: "₹65,000",
         image: "https://images.unsplash.com/photo-1617806118233-18e1de247200?q=80&w=2000&auto=format&fit=crop",
-        category: "Tables",
-        range: "Exclusive",
-    },
-    {
-        id: 401,
-        name: "Modern SS Dining Chair Set (4)",
-        price: "₹32,000",
-        image: "https://images.unsplash.com/photo-1506439773649-6e0eb8cfb237?q=80&w=2000&auto=format&fit=crop",
-        category: "Chairs",
-        range: "Exclusive",
-    },
-    {
-        id: 102,
-        name: "Modern L-Shape Corner Sofa",
-        price: "₹95,000",
-        image: "https://images.unsplash.com/photo-1540574163026-643ea20ade25?q=80&w=2000&auto=format&fit=crop",
-        category: "Sofas",
-        range: "Custom",
-    },
-    {
-        id: 202,
-        name: "Premium Double Bed with Headboard",
-        price: "₹55,000",
-        image: "https://images.unsplash.com/photo-1588046130717-0eb0c9a3ba15?q=80&w=2000&auto=format&fit=crop",
-        category: "Beds",
+        subcategory: "Dining Table",
         range: "Exclusive",
     },
     {
@@ -64,20 +24,60 @@ const products = [
         name: "Modern Glass Coffee Table",
         price: "₹28,000",
         image: "https://images.unsplash.com/photo-1533090481720-856c6e3c1fdc?q=80&w=2000&auto=format&fit=crop",
-        category: "Tables",
+        subcategory: "Coffee Table",
         range: "Economic",
     },
     {
-        id: 402,
-        name: "Ergonomic Office Chair",
-        price: "₹28,000",
-        image: "https://images.unsplash.com/photo-1580480055273-228ff5388ef8?q=80&w=2000&auto=format&fit=crop",
-        category: "Chairs",
+        id: 303,
+        name: "Compact Corner Table",
+        price: "₹15,000",
+        image: "https://images.unsplash.com/photo-1499933374294-4584851497cc?q=80&w=2000&auto=format&fit=crop",
+        subcategory: "Corner Table",
+        range: "Economic",
+    },
+    {
+        id: 304,
+        name: "Luxury Console Table with Mirror",
+        price: "₹45,000",
+        image: "https://images.unsplash.com/photo-1594026112284-02bb6f3352fe?q=80&w=2000&auto=format&fit=crop",
+        subcategory: "Console Table",
+        range: "Exclusive",
+    },
+    {
+        id: 305,
+        name: "8-Seater Grand Dining Table",
+        price: "₹1,20,000",
+        image: "https://images.unsplash.com/photo-1615066390971-03e4e1c36ddf?q=80&w=2000&auto=format&fit=crop",
+        subcategory: "Dining Table",
+        range: "Custom",
+    },
+    {
+        id: 306,
+        name: "Minimalist Coffee Table",
+        price: "₹18,000",
+        image: "https://images.unsplash.com/photo-1532372320572-cda25653a26d?q=80&w=2000&auto=format&fit=crop",
+        subcategory: "Coffee Table",
+        range: "Economic",
+    },
+    {
+        id: 307,
+        name: "Custom Designer Dining Set",
+        price: "₹2,50,000",
+        image: "https://images.unsplash.com/photo-1604578762246-41134e37f9cc?q=80&w=2000&auto=format&fit=crop",
+        subcategory: "Dining Table",
+        range: "Custom",
+    },
+    {
+        id: 308,
+        name: "Elegant Marble Console Table",
+        price: "₹58,000",
+        image: "https://images.unsplash.com/photo-1595428774223-ef52624120d2?q=80&w=2000&auto=format&fit=crop",
+        subcategory: "Console Table",
         range: "Exclusive",
     },
 ];
 
-export default function ProductsPage() {
+export default function TablesPage() {
     return (
         <div className="min-h-screen bg-white font-sans text-neutral-900">
             {/* Top Banner */}
@@ -98,7 +98,6 @@ export default function ProductsPage() {
             <header className="sticky top-0 z-50 w-full bg-white">
                 <div className="container mx-auto px-4 py-4 md:py-6">
                     <div className="flex items-center justify-between gap-4">
-                        {/* Search Bar */}
                         <div className="hidden md:block w-1/4">
                             <div className="relative">
                                 <Input
@@ -109,20 +108,14 @@ export default function ProductsPage() {
                                 <Search className="absolute right-3 top-1/2 h-5 w-5 -translate-y-1/2 text-neutral-500" />
                             </div>
                         </div>
-
-                        {/* Mobile Menu Icon */}
                         <div className="md:hidden">
                             <Menu className="h-6 w-6" />
                         </div>
-
-                        {/* Logo */}
                         <div className="flex-1 text-center md:flex-none">
                             <Link href="/" className="text-2xl font-bold tracking-tight md:text-3xl font-serif">
                                 STALLION<span className="font-light">STAINLESS</span>
                             </Link>
                         </div>
-
-                        {/* Icons */}
                         <div className="flex w-auto md:w-1/4 justify-end items-center gap-4 sm:gap-6">
                             <div className="hidden flex-col items-center gap-1 sm:flex cursor-pointer hover:text-neutral-600">
                                 <div className="flex items-center gap-1 text-xs font-semibold">
@@ -153,7 +146,7 @@ export default function ProductsPage() {
                             ].map((item) => (
                                 <li key={item.name}>
                                     <Link href={item.href} className="cursor-pointer hover:underline underline-offset-4 decoration-neutral-400">
-                                        {item.name === "All Products" ? <span className="text-red-700 underline underline-offset-4">All Products</span> : item.name}
+                                        {item.name === "Tables" ? <span className="text-red-700 underline underline-offset-4">Tables</span> : item.name}
                                     </Link>
                                 </li>
                             ))}
@@ -168,66 +161,37 @@ export default function ProductsPage() {
                     <div className="flex items-center gap-2 text-sm text-neutral-500">
                         <Link href="/" className="hover:text-neutral-900">Home</Link>
                         <ChevronRight className="h-4 w-4" />
-                        <span className="text-neutral-900">All Products</span>
+                        <Link href="/products" className="hover:text-neutral-900">Products</Link>
+                        <ChevronRight className="h-4 w-4" />
+                        <span className="text-neutral-900">Tables</span>
                     </div>
                 </div>
 
                 {/* Page Header */}
                 <div className="container mx-auto px-4 py-8">
-                    <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">All Products</h1>
+                    <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">Tables Collection</h1>
                     <p className="text-neutral-600 max-w-2xl">
-                        Explore our complete collection of premium stainless steel furniture. From elegant sofas to modern beds, tables, and chairs - find the perfect pieces for your space.
+                        From elegant dining tables to stylish coffee tables, our stainless steel table collection combines functionality with modern aesthetics for every room in your home.
                     </p>
                 </div>
 
-                {/* Categories Grid */}
+                {/* Subcategories Grid */}
                 <div className="container mx-auto px-4 mb-12">
-                    <h2 className="text-xl font-semibold mb-6">Shop by Category</h2>
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                        {categories.map((cat) => (
+                        {subcategories.map((sub) => (
                             <Link
-                                href={`/products/${cat.slug}`}
-                                key={cat.slug}
-                                className="group relative overflow-hidden aspect-square"
+                                href={`/products/tables?type=${sub.slug}`}
+                                key={sub.slug}
+                                className="group p-4 border border-neutral-200 hover:border-neutral-900 transition-colors text-center"
                             >
-                                <img
-                                    src={cat.image}
-                                    alt={cat.name}
-                                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                                />
-                                <div className="absolute inset-0 bg-black/30 group-hover:bg-black/40 transition-colors" />
-                                <div className="absolute inset-0 flex flex-col items-center justify-center text-white">
-                                    <h3 className="text-xl font-bold">{cat.name}</h3>
-                                    <p className="text-sm opacity-80">{cat.count} Products</p>
-                                </div>
+                                <h3 className="font-semibold text-sm group-hover:underline">{sub.name}</h3>
+                                <p className="text-xs text-neutral-500 mt-1">{sub.description}</p>
                             </Link>
                         ))}
                     </div>
                 </div>
 
-                {/* Range Sections */}
-                <div className="container mx-auto px-4 mb-12">
-                    <h2 className="text-xl font-semibold mb-6">Shop by Range</h2>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <Link href="/products?range=economic" className="group p-8 bg-green-50 border border-green-200 hover:border-green-400 transition-colors">
-                            <h3 className="text-2xl font-bold text-green-800 mb-2">Economic Range</h3>
-                            <p className="text-green-700 text-sm mb-4">Quality furniture at affordable prices. Perfect for budget-conscious buyers.</p>
-                            <span className="text-green-600 font-semibold text-sm group-hover:underline">Browse Economic →</span>
-                        </Link>
-                        <Link href="/products?range=exclusive" className="group p-8 bg-purple-50 border border-purple-200 hover:border-purple-400 transition-colors">
-                            <h3 className="text-2xl font-bold text-purple-800 mb-2">Exclusive Range</h3>
-                            <p className="text-purple-700 text-sm mb-4">Premium designs with superior craftsmanship. For those who appreciate the finer things.</p>
-                            <span className="text-purple-600 font-semibold text-sm group-hover:underline">Browse Exclusive →</span>
-                        </Link>
-                        <Link href="/products?range=custom" className="group p-8 bg-amber-50 border border-amber-200 hover:border-amber-400 transition-colors">
-                            <h3 className="text-2xl font-bold text-amber-800 mb-2">Custom Range</h3>
-                            <p className="text-amber-700 text-sm mb-4">Bespoke furniture tailored to your specifications. Create your unique piece.</p>
-                            <span className="text-amber-600 font-semibold text-sm group-hover:underline">Browse Custom →</span>
-                        </Link>
-                    </div>
-                </div>
-
-                {/* Filters Bar */}
+                {/* Range Filters */}
                 <div className="container mx-auto px-4 mb-8">
                     <div className="flex flex-wrap items-center justify-between gap-4 py-4 border-y border-neutral-200">
                         <div className="flex items-center gap-4">
@@ -237,13 +201,13 @@ export default function ProductsPage() {
                             </Button>
                             <div className="hidden md:flex gap-2">
                                 <Button variant="ghost" className="h-9 px-4 rounded-full text-sm bg-green-50 text-green-700 hover:bg-green-100">
-                                    Economic
+                                    Economic Range
                                 </Button>
                                 <Button variant="ghost" className="h-9 px-4 rounded-full text-sm bg-purple-50 text-purple-700 hover:bg-purple-100">
-                                    Exclusive
+                                    Exclusive Range
                                 </Button>
                                 <Button variant="ghost" className="h-9 px-4 rounded-full text-sm bg-amber-50 text-amber-700 hover:bg-amber-100">
-                                    Custom
+                                    Custom Range
                                 </Button>
                             </div>
                         </div>
@@ -263,7 +227,6 @@ export default function ProductsPage() {
 
                 {/* Products Grid */}
                 <div className="container mx-auto px-4">
-                    <h2 className="text-xl font-semibold mb-6">Featured Products</h2>
                     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                         {products.map((product) => (
                             <Link href={`/products/${product.id}`} key={product.id} className="group cursor-pointer">
@@ -284,7 +247,7 @@ export default function ProductsPage() {
                                     </span>
                                 </div>
                                 <div>
-                                    <span className="text-xs text-neutral-500 uppercase tracking-wider">{product.category}</span>
+                                    <span className="text-xs text-neutral-500 uppercase tracking-wider">{product.subcategory}</span>
                                     <h3 className="font-semibold text-sm mt-1 group-hover:underline">{product.name}</h3>
                                     <p className="text-sm text-neutral-600 mt-1">{product.price}</p>
                                 </div>
